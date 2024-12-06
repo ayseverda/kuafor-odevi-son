@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Hesap Oluştur</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="/Kullanici/KayitOl">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-posta:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sifre" class="form-label">Şifre:</label>
+                            <input type="password" class="form-control" id="sifre" name="sifre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sifreOnay" class="form-label">Şifreyi Onayla:</label>
+                            <input type="password" class="form-control" id="sifreOnay" name="sifreOnay" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary w-100">Kayıt Ol</button>
+
+                        </div>
+
+                        
+                        <div class="text-center">
+                            <p>Hesabınız zaten var mı? <a href="/Kullanici/GirisYap">Giriş Yapın</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

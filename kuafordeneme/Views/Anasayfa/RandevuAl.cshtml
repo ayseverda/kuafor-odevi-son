@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Randevu Al";
+}
+<h1>Randevu Al</h1>
+
+<form method="post" action="/Anasayfa/RandevuAl">
+    <div class="mb-3">
+        <label for="isim" class="form-label">Adınız:</label>
+        <input type="text" class="form-control" id="isim" name="isim" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="islem" class="form-label">İşlem:</label>
+        <select class="form-select" id="islem" name="islem" required>
+            <option value="Saç Kesimi">Saç Kesimi</option>
+            <option value="Boyama">Boyama</option>
+            <option value="Saç Bakımı">Saç Bakımı</option>
+            <option value="Cilt Bakımı">Cilt Bakımı</option>
+            <option value="Makyaj">Makyaj</option>
+            <option value="Protez Tırnak">Protez Tırnak</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="tarihSaat" class="form-label">Tarih ve Saat:</label>
+        <input type="datetime-local" class="form-control" id="tarihSaat" name="tarihSaat" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="calisan" class="form-label">Çalışan Seçin:</label>
+        <select class="form-select" id="calisan" name="calisan" required>
+            <!-- Çalışanlar dinamik olarak buraya yüklenecek -->
+            <option value="1">İbrahim Bey (Saç Kesimi)</option>
+            <option value="1">Orhan Bey (Saç Kesimi)</option>
+            <option value="2">Berrak Hanım (Boyama)</option>
+            <option value="2">Orhan Bey (Boyama)</option>
+            <option value="3">Zehra Hanım (Saç Bakımı)</option>
+            <option value="4">Hatice Hanım (Cilt Bakımı)</option>
+            <option value="5">Emine Hanım (Makyaj)</option>
+            <option value="5">Ayşe Hanım (Protez Tırnak)</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Randevu Al</button>
+</form>
