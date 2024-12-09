@@ -28,3 +28,9 @@ C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\refint\ku
 C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\kuafordeneme.pdb
 C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\kuafordeneme.genruntimeconfig.cache
 C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\ref\kuafordeneme.dll
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\kuafordeneme.sourcelink.json
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\bin\Debug\net8.0\Npgsql.dll
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\kuafordeneme.csproj.AssemblyReference.cache
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\kuaforde.763F2C5B.Up2Date

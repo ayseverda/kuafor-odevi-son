@@ -2,10 +2,11 @@
 {
     public class Islem
     {
-        public int Id { get; set; }
-        public string IslemAdi { get; set; } // Örnek: "Saç Kesimi", "Boyama"
-        public int Sure { get; set; } // Dakika cinsinden süre (Örnek: 30 dk)
-        public decimal Ucret { get; set; } // Ücret (Örnek: 50 TL)
-        public string Uzmanikim { get; set; } // Hangi çalışan türü (Örnek: "Saç Kesimi Uzmanı")
+        public int IslemID { get; set; }             // İşlem ID (Primary Key)
+        public string IslemAd { get; set; }          // İşlem adı (örn. Saç kesimi)
+        public int IslemSuresi { get; set; }         // İşlem süresi (dakika cinsinden)
+        public decimal Ucret { get; set; }           // İşlem ücreti
+        public string Tanim { get; set; }            // İşlem açıklaması
     }
+
 }

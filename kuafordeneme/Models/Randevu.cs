@@ -2,13 +2,17 @@
 {
     public class Randevu
     {
-        public int Id { get; set; }
-        public string MusteriAdi { get; set; }
-        public DateTime TarihSaat { get; set; }
-        public decimal Ucret { get; set; } // İşlemin ücretini buradan alabiliriz
-        public int CalisanId { get; set; } // Hangi çalışanın yaptığı
-        public int IslemId { get; set; } // Hangi işlemi yaptığı
-        public Islem Islem { get; set; } // İşlem nesnesi
-        public Calisan Calisan { get; set; } // Çalışan nesnesi
+        public int RandevuID { get; set; }           // Randevu ID (Primary Key)
+        public int KullaniciID { get; set; }         // Kullanıcı ID (Foreign Key to Kullanici)
+        public int IslemID { get; set; }             // İşlem ID (Foreign Key to Islem)
+        public int CalisanID { get; set; }           // Çalışan ID (Foreign Key to Calisan)
+        public DateTime RandevuZamani { get; set; }  // Randevu zamanı
+        public string Durum { get; set; }            // Randevu durumu (örn. Onaylandı, İptal Edildi)
+
+        // Navigation properties
+        public Kullanici Kullanici { get; set; }     // Kullanıcı (Navigation Property)
+        public Islem Islem { get; set; }             // İşlem (Navigation Property)
+        public Calisanlar Calisan { get; set; }         // Çalışan (Navigation Property)
     }
+
 }
