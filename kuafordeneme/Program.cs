@@ -1,24 +1,18 @@
-using Microsoft.AspNetCore.Mvc;
-using Npgsql;
-using Microsoft.Extensions.Configuration;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-// Baðlantý dizesini IConfiguration ile alýyoruz
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturum süresi
+    options.Cookie.HttpOnly = true;                // Güvenlik
+    options.Cookie.IsEssential = true;             // Çerezler gerekli
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
+// Use middleware
+app.UseSession(); // Session middleware'i ekle
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
@@ -29,4 +23,3 @@ app.MapControllerRoute(
     pattern: "{controller=Anasayfa}/{action=Index}/{id?}");
 
 app.Run();
-

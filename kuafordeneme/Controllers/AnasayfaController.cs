@@ -82,7 +82,6 @@ namespace kuafordeneme.Controllers
         [HttpPost]
         public IActionResult GirisYap(string email, string sifre)
         {
-            // Kullanıcıyı veritabanından kontrol etme
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 try
@@ -94,26 +93,35 @@ namespace kuafordeneme.Controllers
 
                         using (var reader = command.ExecuteReader())
                         {
-                            if (reader.Read()) // Kullanıcı veritabanında varsa
+                            if (reader.Read()) // Kullanıcı bulunduysa
                             {
                                 var dbSifre = reader["Sifre"].ToString();
-
-                                // Şifreyi doğrulama (eğer şifre doğruysa giriş yapılır)
                                 if (dbSifre == sifre) // Şifre doğruysa
                                 {
+                                    // Kullanıcı bilgilerini session'a kaydet
+                                    HttpContext.Session.SetInt32("KullaniciID", Convert.ToInt32(reader["KullaniciID"]));
+                                    HttpContext.Session.SetString("AdSoyad", reader["AdSoyad"].ToString());
+                                    HttpContext.Session.SetString("Email", reader["Email"].ToString());
+
                                     var isAdmin = Convert.ToBoolean(reader["IsAdmin"]);
-                                    TempData["UserRole"] = isAdmin ? "Admin" : "User"; // Admin mi kullanıcı mı olduğunu kontrol ediyoruz
-                                    return RedirectToAction(isAdmin ? "AdminPanel" : "Index"); // Admin veya kullanıcı yönlendirmesi
+                                    if (isAdmin)
+                                    {
+                                        HttpContext.Session.SetString("UserRole", "Admin");
+                                        return RedirectToAction("AdminPanel"); // Admin için yönlendirme
+                                    }
+                                    else
+                                    {
+                                        HttpContext.Session.SetString("UserRole", "User");
+                                        return RedirectToAction("Index"); // Müşteri için yönlendirme
+                                    }
                                 }
                                 else
                                 {
-                                    // Şifre yanlışsa hata mesajı ver
                                     TempData["Error"] = "Geçersiz şifre.";
                                 }
                             }
                             else
                             {
-                                // E-posta yanlışsa hata mesajı ver
                                 TempData["Error"] = "Geçersiz e-posta.";
                             }
                         }
@@ -126,19 +134,27 @@ namespace kuafordeneme.Controllers
                 }
             }
 
-            return View(); // Hatalı giriş olursa tekrar aynı sayfaya yönlendiriyoruz
+            return View(); // Hatalı girişte aynı sayfaya döner
+        }
+
+        public IActionResult CikisYap()
+        {
+            HttpContext.Session.Clear(); // Tüm session bilgilerini temizle
+            return RedirectToAction("GirisYap", "Anasayfa");
         }
 
 
         // Admin Paneline Yönlendirme
         public IActionResult AdminPanel()
         {
-            if (TempData["UserRole"]?.ToString() != "Admin")
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
             {
-                return RedirectToAction("GirisYap"); // Admin değilse giriş sayfasına yönlendir
+                TempData["Error"] = "Admin yetkisine sahip değilsiniz.";
+                return RedirectToAction("GirisYap");
             }
 
-            return View();
+            return View(); // Admin panel sayfası
         }
 
         // Kullanıcı Kaydı

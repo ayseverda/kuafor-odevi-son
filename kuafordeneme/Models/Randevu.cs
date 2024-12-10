@@ -9,10 +9,13 @@
         public DateTime RandevuZamani { get; set; }  // Randevu zamanı
         public string Durum { get; set; }            // Randevu durumu (örn. Onaylandı, İptal Edildi)
 
+        // Dinamik listeleme için ek özellikler
+        public List<Islem> Islemler { get; set; }    // İşlem listesi (Dinamik doldurulacak)
+        public List<Calisanlar> Calisanlar { get; set; } // Çalışan listesi (Dinamik doldurulacak)
+
         // Navigation properties
         public Kullanici Kullanici { get; set; }     // Kullanıcı (Navigation Property)
         public Islem Islem { get; set; }             // İşlem (Navigation Property)
-        public Calisanlar Calisan { get; set; }         // Çalışan (Navigation Property)
+        public Calisanlar Calisan { get; set; }      // Çalışan (Navigation Property)
     }
-
 }
