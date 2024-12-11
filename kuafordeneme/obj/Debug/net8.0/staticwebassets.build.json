@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MvJCenmB84xahBXY9U5o7qifNFIroMjE7oeNnlCn0i8=",
+  "Hash": "KyCAmNGhLMzxDQX7VqdBWO6WKufCGr84lykYrtOmPqs=",
   "Source": "kuafordeneme",
   "BasePath": "_content/kuafordeneme",
   "Mode": "Default",
@@ -186,25 +186,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\tirnak.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\js\\Admin.js",
-      "SourceId": "kuafordeneme",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\",
-      "BasePath": "_content/kuafordeneme",
-      "RelativePath": "js/Admin.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\Admin.js"
     },
     {
       "Identity": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\js\\site.js",

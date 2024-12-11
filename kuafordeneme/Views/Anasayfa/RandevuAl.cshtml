@@ -1,45 +1,72 @@
 ﻿@{
     ViewData["Title"] = "Randevu Al";
 }
-<h1>Randevu Al</h1>
 
-<form method="post" action="/Anasayfa/RandevuAl">
-    <div class="mb-3">
-        <label for="isim" class="form-label">Adınız:</label>
-        <input type="text" class="form-control" id="isim" name="isim" required>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Randevu Al</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="/Anasayfa/RandevuAl">
+                        <!-- Ad Soyad -->
+                        <div class="mb-3">
+                            <label for="adSoyad" class="form-label">Ad Soyad:</label>
+                            <input type="text" class="form-control" id="adSoyad" name="adSoyad" required>
+                        </div>
+
+                        <!-- İşlem Seçimi -->
+                        <div class="mb-3">
+                            <label for="islem" class="form-label">İşlem Seçin:</label>
+                            <select class="form-select" id="islem" name="islemID" required onchange="getCalisanlar()">
+                                <option value="">İşlem Seçin</option>
+                                @foreach (var islem in (List<Islemler>)ViewBag.Islemler)
+                                {
+                                    <option value="@islem.IslemID">@islem.IslemAd</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Çalışan Seçimi -->
+                        <div class="mb-3">
+                            <label for="calisan" class="form-label">Çalışan Seçin:</label>
+                            <select class="form-select" id="calisan" name="calisanID" required>
+                                <option value="">Çalışan Seçin</option>
+                                @foreach (var calisan in (List<Calisanlar>)ViewBag.Calisanlar)
+                                {
+                                    <option value="@calisan.CalisanID">@calisan.CalisanAd</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Randevu Zamanı -->
+                        <div class="mb-3">
+                            <label for="randevuZamani" class="form-label">Randevu Zamanı:</label>
+                            <input type="datetime-local" class="form-control" id="randevuZamani" name="randevuZamani" required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary w-100">Randevu Al</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="mb-3">
-        <label for="islem" class="form-label">İşlem:</label>
-        <select class="form-select" id="islem" name="islem" required>
-            <option value="Saç Kesimi">Saç Kesimi</option>
-            <option value="Boyama">Boyama</option>
-            <option value="Saç Bakımı">Saç Bakımı</option>
-            <option value="Cilt Bakımı">Cilt Bakımı</option>
-            <option value="Makyaj">Makyaj</option>
-            <option value="Protez Tırnak">Protez Tırnak</option>
-        </select>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
     </div>
+}
 
-    <div class="mb-3">
-        <label for="tarihSaat" class="form-label">Tarih ve Saat:</label>
-        <input type="datetime-local" class="form-control" id="tarihSaat" name="tarihSaat" required>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
     </div>
-
-    <div class="mb-3">
-        <label for="calisan" class="form-label">Çalışan Seçin:</label>
-        <select class="form-select" id="calisan" name="calisan" required>
-            <!-- Çalışanlar dinamik olarak buraya yüklenecek -->
-            <option value="1">İbrahim Bey (Saç Kesimi)</option>
-            <option value="1">Orhan Bey (Saç Kesimi)</option>
-            <option value="2">Berrak Hanım (Boyama)</option>
-            <option value="2">Orhan Bey (Boyama)</option>
-            <option value="3">Zehra Hanım (Saç Bakımı)</option>
-            <option value="4">Hatice Hanım (Cilt Bakımı)</option>
-            <option value="5">Emine Hanım (Makyaj)</option>
-            <option value="5">Ayşe Hanım (Protez Tırnak)</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Randevu Al</button>
-</form>
+}

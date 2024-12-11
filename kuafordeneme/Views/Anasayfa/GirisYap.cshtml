@@ -1,63 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Giriş Yap";
-    var kullaniciID = Context.Session.GetInt32("KullaniciID"); // Kullanıcı ID'sini kontrol et
-    var userRole = Context.Session.GetString("UserRole");      // Kullanıcı rolünü kontrol et
 }
 
-<div class="container">
+<div class="container mt-5">
     <h2 class="text-center mb-4">Sisteme Giriş Yap</h2>
 
-    @if (kullaniciID == null) // Kullanıcı giriş yapmamışsa
+    @if (TempData["Success"] != null)
     {
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="post" action="/Anasayfa/GirisYap">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">E-posta:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
 
-                            <div class="mb-3">
-                                <label for="sifre" class="form-label">Şifre:</label>
-                                <input type="password" class="form-control" id="sifre" name="sifre" required>
-                            </div>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
 
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
-                            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="/Anasayfa/GirisYap">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-posta:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
 
-                            <div class="text-center">
-                                <p>Hesabınız yok mu? <a href="/Anasayfa/KayitOl">Kayıt Olun</a></p>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="mb-3">
+                            <label for="sifre" class="form-label">Şifre:</label>
+                            <input type="password" class="form-control" id="sifre" name="sifre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+                        </div>
+
+                        <div class="text-center">
+                            <p>Hesabınız zaten var mı? <a href="/Anasayfa/KayitOl">Kayıt Olun</a></p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    }
-    else if (userRole == "Admin") // Admin giriş yaptıysa
-    {
-        <div class="alert alert-success text-center">
-            <p>Merhaba, @Context.Session.GetString("AdSoyad")!</p>
-            <p>Admin paneline erişmek için <a href="@Url.Action("AdminPanel", "Anasayfa")">tıklayın</a>.</p>
-            <a href="@Url.Action("CikisYap", "Anasayfa")" class="btn btn-danger mt-2">Çıkış Yap</a>
-        </div>
-    }
-    else // Müşteri giriş yaptıysa
-    {
-        <div class="alert alert-success text-center">
-            <p>Merhaba, @Context.Session.GetString("AdSoyad")!</p>
-            <p>Zaten giriş yapmışsınız. Ana sayfaya gitmek için <a href="@Url.Action("Index", "Anasayfa")">tıklayın</a>.</p>
-            <a href="@Url.Action("CikisYap", "Anasayfa")" class="btn btn-danger mt-2">Çıkış Yap</a>
-        </div>
-    }
-</div>
-
-@if (TempData["Error"] != null) // Giriş hata mesajı
-{
-    <div class="alert alert-danger text-center">
-        @TempData["Error"]
     </div>
-}
+</div>

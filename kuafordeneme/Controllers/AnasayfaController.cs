@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using kuafordeneme.Models;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql; // PostgreSQL bağlantısı için
 using System;
+using System.Collections.Generic;
 
 namespace kuafordeneme.Controllers
 {
@@ -14,11 +16,95 @@ namespace kuafordeneme.Controllers
             return View();
         }
 
-        // Randevu Al
+        [HttpGet]
         public IActionResult RandevuAl()
         {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                // İşlemleri al
+                var islemCommand = new NpgsqlCommand("SELECT * FROM Islem", connection);
+                var islemler = new List<Islemler>();
+                using (var reader = islemCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        islemler.Add(new Islemler
+                        {
+                            IslemID = reader.GetInt32(0),
+                            IslemAd = reader.GetString(1)
+                        });
+                    }
+                }
+                ViewBag.Islemler = islemler;
+
+                // Çalışanları al ve sadece müsait olanları göster
+                var calisanCommand = new NpgsqlCommand("SELECT * FROM Calisanlar WHERE Musaitlik = TRUE", connection);
+                var calisanlar = new List<Calisanlar>();
+                using (var reader = calisanCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        calisanlar.Add(new Calisanlar
+                        {
+                            CalisanID = reader.GetInt32(0),
+                            CalisanAd = reader.GetString(1)
+                        });
+                    }
+                }
+                ViewBag.Calisanlar = calisanlar;
+            }
+
             return View();
         }
+
+        [HttpPost]
+        public IActionResult RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
+        {
+            var kullaniciID = 1; // Bu, o anki oturumdaki kullanıcının ID'si olmalı.
+            var islemSuresi = 30; // Bu değeri işlemin süresine göre dinamik almak gerekebilir.
+
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                // Çalışanın müsait olup olmadığını kontrol et
+                var checkCommand = new NpgsqlCommand("SELECT Musaitlik FROM Calisanlar WHERE CalisanID = @CalisanID", connection);
+                checkCommand.Parameters.AddWithValue("@CalisanID", calisanID);
+                var calisanMüsait = Convert.ToBoolean(checkCommand.ExecuteScalar());
+
+                if (!calisanMüsait)
+                {
+                    TempData["Error"] = "Bu çalışan o saatte müsait değil!";
+                    return RedirectToAction("RandevuAl");
+                }
+
+                // Randevu bitiş zamanını hesapla (randevu süresi kadar)
+                DateTime randevuBitisZamani = randevuZamani.AddMinutes(islemSuresi);
+
+                // Randevu kaydetme
+                var insertCommand = new NpgsqlCommand("INSERT INTO Randevu (KullaniciID, IslemID, CalisanID, RandevuZamani, RandevuBitisZamani, Durum) VALUES (@KullaniciID, @IslemID, @CalisanID, @RandevuZamani, @RandevuBitisZamani, 'Bekliyor')", connection);
+                insertCommand.Parameters.AddWithValue("@KullaniciID", kullaniciID);
+                insertCommand.Parameters.AddWithValue("@IslemID", islemID);
+                insertCommand.Parameters.AddWithValue("@CalisanID", calisanID);
+                insertCommand.Parameters.AddWithValue("@RandevuZamani", randevuZamani);
+                insertCommand.Parameters.AddWithValue("@RandevuBitisZamani", randevuBitisZamani);
+
+                insertCommand.ExecuteNonQuery();
+
+                // Çalışan müsaitlik durumunu değiştirme (Randevu alındığında)
+                var updateCommand = new NpgsqlCommand("UPDATE Calisanlar SET Musaitlik = FALSE WHERE CalisanID = @CalisanID", connection);
+                updateCommand.Parameters.AddWithValue("@CalisanID", calisanID);
+                updateCommand.ExecuteNonQuery();
+
+                TempData["Success"] = "Randevunuz başarıyla alındı!";
+            }
+
+            return RedirectToAction("RandevuAl");
+        }
+
+
 
         // Hizmetlerimiz
         public IActionResult Hizmetlerimiz()
@@ -163,7 +249,6 @@ namespace kuafordeneme.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult KayitOl(string adSoyad, string email, string sifre, string sifreOnay)
         {
@@ -173,22 +258,25 @@ namespace kuafordeneme.Controllers
                 return View();
             }
 
-            // Kullanıcıyı veritabanına kaydediyoruz
+            // Kullanıcıyı veritabanına ekleme
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
-                    using (var command = new NpgsqlCommand("INSERT INTO Kullanicilar (AdSoyad, Email, Sifre) VALUES (@AdSoyad, @Email, @Sifre)", connection))
-                    {
-                        command.Parameters.AddWithValue("@AdSoyad", adSoyad);
-                        command.Parameters.AddWithValue("@Email", email);
-                        command.Parameters.AddWithValue("@Sifre", sifre);
-                        command.ExecuteNonQuery();
-                    }
+                    var command = new NpgsqlCommand("INSERT INTO Kullanicilar (AdSoyad, Email, Sifre, IsAdmin) VALUES (@AdSoyad, @Email, @Sifre, @IsAdmin)", connection);
+
+                    // Parametreleri ekliyoruz
+                    command.Parameters.AddWithValue("@AdSoyad", adSoyad);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Sifre", sifre);  // Şifreyi düz metinle kaydediyoruz, güvenlik için hashlenmiş olmalı
+                    command.Parameters.AddWithValue("@IsAdmin", false);  // Varsayılan olarak kullanıcılar admin değil
+
+                    // Veritabanına kaydediyoruz
+                    command.ExecuteNonQuery();
 
                     TempData["Success"] = "Kayıt başarılı! Giriş yapabilirsiniz.";
-                    return RedirectToAction("GirisYap");
+                    return RedirectToAction("GirisYap"); // Kayıt işlemi başarılıysa giriş sayfasına yönlendirilir
                 }
                 catch (Exception ex)
                 {
@@ -197,7 +285,10 @@ namespace kuafordeneme.Controllers
                 }
             }
 
-            return View();
+            return View();  // Hata varsa tekrar kayıt ol sayfasına yönlendirme
         }
+
+
     }
+
 }
