@@ -230,7 +230,6 @@ namespace kuafordeneme.Controllers
         }
 
 
-        // Admin Paneline Yönlendirme
         public IActionResult AdminPanel()
         {
             var userRole = HttpContext.Session.GetString("UserRole");
