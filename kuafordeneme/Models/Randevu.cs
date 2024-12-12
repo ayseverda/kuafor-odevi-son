@@ -14,7 +14,7 @@
         public List<Calisanlar> Calisanlar { get; set; } // Çalışan listesi (Dinamik doldurulacak)
 
         // Navigation properties
-        public Kullanici Kullanici { get; set; }     // Kullanıcı (Navigation Property)
+        public Kullanicilar Kullanici { get; set; }     // Kullanıcı (Navigation Property)
         public Islemler Islem { get; set; }             // İşlem (Navigation Property)
         public Calisanlar Calisan { get; set; }      // Çalışan (Navigation Property)
     }

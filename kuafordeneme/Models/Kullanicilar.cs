@@ -1,6 +1,6 @@
 ﻿namespace kuafordeneme.Models
 {
-    public class Kullanici
+    public class Kullanicilar
     {
       
             public int KullaniciID { get; set; }

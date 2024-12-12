@@ -27,37 +27,209 @@
         <div class="tab-pane fade show active" id="islem" role="tabpanel">
             <h5>İşlem Yönetimi</h5>
             <p>Kuaför işlemlerini ekle, düzenle veya sil.</p>
-            <button class="btn btn-success mb-2" onclick="ekleIslem()">Yeni İşlem Ekle</button>
-            <div id="islemTable">
-                <!-- İşlem Tablosu Buraya Yüklenecek -->
+            <form method="post" action="/Anasayfa/IslemEkleGuncelle">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="islemID" class="form-label">İşlem ID</label>
+                        <input type="number" class="form-control" id="islemID" name="islemID" placeholder="ID (varsa)">
+                    </div>
+                    <div class="col">
+                        <label for="islemAd" class="form-label">İşlem Adı</label>
+                        <input type="text" class="form-control" id="islemAd" name="islemAd" placeholder="İşlem adı">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="islemSuresi" class="form-label">Süre (dk)</label>
+                        <input type="number" class="form-control" id="islemSuresi" name="islemSuresi" placeholder="Süre">
+                    </div>
+                    <div class="col">
+                        <label for="ucret" class="form-label">Ücret (TL)</label>
+                        <input type="number" step="0.01" class="form-control" id="ucret" name="ucret" placeholder="Ücret">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="tanim" class="form-label">Açıklama</label>
+                    <input type="text" class="form-control" id="tanim" name="tanim" placeholder="Açıklama">
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" name="islem" value="ekle" class="btn btn-success">Ekle</button>
+                    <button type="submit" name="islem" value="guncelle" class="btn btn-warning">Güncelle</button>
+                    <button type="submit" name="islem" value="sil" class="btn btn-danger">Sil</button>
+                </div>
+            </form>
+
+            <div class="mt-4">
+                @if (ViewBag.Islemler != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>İşlem Adı</th>
+                                <th>Süre (dk)</th>
+                                <th>Ücret (TL)</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var islem in (List<Islemler>)ViewBag.Islemler)
+                            {
+                                <tr>
+                                    <td>@islem.IslemID</td>
+                                    <td>@islem.IslemAd</td>
+                                    <td>@islem.IslemSuresi</td>
+                                    <td>@islem.Ucret</td>
+                                    <td>@islem.Tanim</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>İşlem bulunamadı.</p>
+                }
             </div>
         </div>
 
         <!-- Çalışan Yönetimi -->
         <div class="tab-pane fade" id="calisan" role="tabpanel">
             <h5>Çalışan Yönetimi</h5>
-            <p>Çalışanları ekle, düzenle veya sil.</p>
-            <button class="btn btn-success mb-2" onclick="ekleCalisan()">Yeni Çalışan Ekle</button>
-            <div id="calisanTable">
-                <!-- Çalışan Tablosu Buraya Yüklenecek -->
-            </div>
-        </div>
+            <form method="post" action="/Anasayfa/CalisanEkleGuncelle">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="calisanID" class="form-label">Çalışan ID</label>
+                        <input type="number" class="form-control" id="calisanID" name="calisanID" placeholder="ID (varsa)">
+                    </div>
+                    <div class="col">
+                        <label for="calisanAd" class="form-label">Ad Soyad</label>
+                        <input type="text" class="form-control" id="calisanAd" name="calisanAd" placeholder="Çalışan adı">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="uzmanlikID" class="form-label">Uzmanlık ID</label>
+                        <input type="number" class="form-control" id="uzmanlikID" name="uzmanlikID" placeholder="Uzmanlık ID">
+                    </div>
+                    <div class="col">
+                        <label for="musaitlik" class="form-label">Müsaitlik</label>
+                        <select class="form-select" id="musaitlik" name="musaitlik">
+                            <option value="true">Müsait</option>
+                            <option value="false">Müsait Değil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" name="islem" value="ekle" class="btn btn-success">Ekle</button>
+                    <button type="submit" name="islem" value="guncelle" class="btn btn-warning">Güncelle</button>
+                    <button type="submit" name="islem" value="sil" class="btn btn-danger">Sil</button>
+                </div>
+            </form>
 
-        <!-- Randevu Onayı -->
-        <div class="tab-pane fade" id="randevu" role="tabpanel">
-            <h5>Randevu Onayı</h5>
-            <p>Bekleyen randevuları onayla veya iptal et.</p>
-            <div id="randevuTable">
-                <!-- Randevu Tablosu Buraya Yüklenecek -->
+            <div class="mt-4">
+                @if (ViewBag.Calisanlar != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ad Soyad</th>
+                                <th>Uzmanlık</th>
+                                <th>Müsaitlik</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var calisan in (List<Calisanlar>)ViewBag.Calisanlar)
+                            {
+                                <tr>
+                                    <td>@calisan.CalisanID</td>
+                                    <td>@calisan.CalisanAd</td>
+                                    <td>@calisan.UzmanlikID</td>
+                                    <td>@(calisan.Musaitlik ? "Müsait" : "Müsait Değil")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Çalışan bulunamadı.</p>
+                }
             </div>
         </div>
 
         <!-- Kullanıcı Yönetimi -->
         <div class="tab-pane fade" id="kullanici" role="tabpanel">
             <h5>Kullanıcı Yönetimi</h5>
-            <p>Sistemdeki kullanıcıları yönet.</p>
-            <div id="kullaniciTable">
-                <!-- Kullanıcı Tablosu Buraya Yüklenecek -->
+            <form method="post" action="/Anasayfa/KullaniciEkleGuncelle">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="kullaniciID" class="form-label">Kullanıcı ID</label>
+                        <input type="number" class="form-control" id="kullaniciID" name="kullaniciID" placeholder="ID (varsa)">
+                    </div>
+                    <div class="col">
+                        <label for="adSoyad" class="form-label">Ad Soyad</label>
+                        <input type="text" class="form-control" id="adSoyad" name="adSoyad" placeholder="Kullanıcı adı">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="email" class="form-label">E-posta</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="E-posta">
+                    </div>
+                    <div class="col">
+                        <label for="sifre" class="form-label">Şifre</label>
+                        <input type="password" class="form-control" id="sifre" name="sifre" placeholder="Şifre">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select class="form-select" id="rol" name="rol">
+                        <option value="false">Kullanıcı</option>
+                        <option value="true">Admin</option>
+                    </select>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" name="islem" value="ekle" class="btn btn-success">Ekle</button>
+                    <button type="submit" name="islem" value="guncelle" class="btn btn-warning">Güncelle</button>
+                    <button type="submit" name="islem" value="sil" class="btn btn-danger">Sil</button>
+                </div>
+            </form>
+
+            <div class="mt-4">
+                @if (ViewBag.Kullanicilar != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ad Soyad</th>
+                                <th>E-posta</th>
+                                <th>Rol</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var kullanici in (List<Kullanicilar>)ViewBag.Kullanicilar)
+                            {
+                                <tr>
+                                    <td>@kullanici.KullaniciID</td>
+                                    <td>@kullanici.AdSoyad</td>
+                                    <td>@kullanici.Email</td>
+                                    <td>@(kullanici.IsAdmin ? "Admin" : "Kullanıcı")</td>
+                                    <td>
+                                        <a href="#">Düzenle</a> | <a href="#">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Kullanıcı bulunamadı.</p>
+                }
             </div>
         </div>
     </div>

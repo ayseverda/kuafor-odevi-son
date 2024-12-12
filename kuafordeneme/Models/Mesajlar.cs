@@ -9,7 +9,7 @@
         public DateTime Tarih { get; set; }          // Mesaj gönderilme tarihi
 
         // Navigation property
-        public Kullanici Kullanici { get; set; }     // Mesajı gönderen kullanıcı (Navigation Property)
+        public Kullanicilar Kullanici { get; set; }     // Mesajı gönderen kullanıcı (Navigation Property)
     }
 
 }

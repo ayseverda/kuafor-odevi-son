@@ -8,7 +8,8 @@
         public bool Musaitlik { get; set; }          // Müsait mi (true/false)
 
         // Navigation property
-        public Islemler Islem { get; set; }             // Çalışanın uzmanlık yaptığı işlem (Navigation Property)
+        public decimal GunlukKazanc { get; set; }
+        public Islemler Islem { get; set; }     // Çalışanın uzmanlık yaptığı işlem (Navigation Property)
     }
 
 }

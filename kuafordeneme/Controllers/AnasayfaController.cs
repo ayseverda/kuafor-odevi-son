@@ -228,19 +228,273 @@ namespace kuafordeneme.Controllers
             HttpContext.Session.Clear(); // Tüm session bilgilerini temizle
             return RedirectToAction("GirisYap", "Anasayfa");
         }
-
-
         public IActionResult AdminPanel()
         {
-            var userRole = HttpContext.Session.GetString("UserRole");
-            if (userRole != "Admin")
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                TempData["Error"] = "Admin yetkisine sahip değilsiniz.";
-                return RedirectToAction("GirisYap");
+                connection.Open();
+
+                // İşlem tablosunu alıyoruz
+                var islemCommand = new NpgsqlCommand("SELECT * FROM Islem", connection);
+                var islemler = new List<Islemler>();
+                using (var reader = islemCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        islemler.Add(new Islemler
+                        {
+                            IslemID = reader.GetInt32(0),
+                            IslemAd = reader.GetString(1),
+                            IslemSuresi = reader.GetInt32(2),
+                            Ucret = reader.GetDecimal(3),
+                            Tanim = reader.IsDBNull(4) ? null : reader.GetString(4)
+                        });
+                    }
+                }
+
+                // Çalışan tablosunu alıyoruz
+                var calisanCommand = new NpgsqlCommand("SELECT * FROM Calisanlar", connection);
+                var calisanlar = new List<Calisanlar>();
+                using (var reader = calisanCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        calisanlar.Add(new Calisanlar
+                        {
+                            CalisanID = reader.GetInt32(0),
+                            CalisanAd = reader.GetString(1),
+                            UzmanlikID = reader.GetInt32(2),
+                            Musaitlik = reader.GetBoolean(3)
+                        });
+                    }
+                }
+
+                // Randevuları alıyoruz
+                var randevuCommand = new NpgsqlCommand(
+                    "SELECT r.RandevuID, k.AdSoyad AS KullaniciAd, i.IslemAd, c.CalisanAd, r.RandevuZamani, r.Durum " +
+                    "FROM Randevu r " +
+                    "JOIN Kullanicilar k ON r.KullaniciID = k.KullaniciID " +
+                    "JOIN Islem i ON r.IslemID = i.IslemID " +
+                    "JOIN Calisanlar c ON r.CalisanID = c.CalisanID", connection);
+
+                var randevular = new List<RandevuViewModel>();
+                using (var reader = randevuCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        randevular.Add(new RandevuViewModel
+                        {
+                            RandevuID = reader.GetInt32(0),
+                            KullaniciAd = reader.GetString(1),
+                            IslemAd = reader.GetString(2),
+                            CalisanAd = reader.GetString(3),
+                            RandevuZamani = reader.GetDateTime(4),
+                            Durum = reader.GetString(5)
+                        });
+                    }
+                }
+
+                // Kullanıcıları alıyoruz
+                var kullaniciCommand = new NpgsqlCommand("SELECT * FROM Kullanicilar", connection);
+                var kullanicilar = new List<Kullanicilar>();
+                using (var reader = kullaniciCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        kullanicilar.Add(new Kullanicilar
+                        {
+                            KullaniciID = reader.GetInt32(0),
+                            AdSoyad = reader.GetString(1),
+                            Email = reader.GetString(2),
+                            IsAdmin = reader.GetBoolean(4)
+                        });
+                    }
+                }
+
+                // ViewBag'e verileri aktarıyoruz
+                ViewBag.Islemler = islemler;
+                ViewBag.Calisanlar = calisanlar;
+                ViewBag.Randevular = randevular;
+                ViewBag.Kullanicilar = kullanicilar;
             }
 
-            return View(); // Admin panel sayfası
+            return View();
         }
+
+
+        [HttpPost]
+        public IActionResult IslemEkleGuncelle(int? islemID, string islemAd, int islemSuresi, decimal ucret, string tanim, string islem)
+        {
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    if (islem == "ekle") // Yeni işlem ekleme
+                    {
+                        var command = new NpgsqlCommand(
+                            "INSERT INTO Islem (IslemAd, IslemSuresi, Ucret, Tanim) VALUES (@IslemAd, @IslemSuresi, @Ucret, @Tanim)",
+                            connection);
+
+                        command.Parameters.AddWithValue("@IslemAd", islemAd ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@IslemSuresi", islemSuresi);
+                        command.Parameters.AddWithValue("@Ucret", ucret);
+                        command.Parameters.AddWithValue("@Tanim", tanim ?? (object)DBNull.Value);
+
+                        command.ExecuteNonQuery();
+                    }
+                    else if (islem == "guncelle" && islemID.HasValue) // Güncelleme
+                    {
+                        var command = new NpgsqlCommand(
+                            "UPDATE Islem SET IslemAd = @IslemAd, IslemSuresi = @IslemSuresi, Ucret = @Ucret, Tanim = @Tanim WHERE IslemID = @IslemID",
+                            connection);
+
+                        command.Parameters.AddWithValue("@IslemAd", islemAd ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@IslemSuresi", islemSuresi);
+                        command.Parameters.AddWithValue("@Ucret", ucret);
+                        command.Parameters.AddWithValue("@Tanim", tanim ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@IslemID", islemID.Value);
+
+                        command.ExecuteNonQuery();
+                    }
+                    else if (islem == "sil" && islemID.HasValue) // Silme
+                    {
+                        var command = new NpgsqlCommand(
+                            "DELETE FROM Islem WHERE IslemID = @IslemID",
+                            connection);
+
+                        command.Parameters.AddWithValue("@IslemID", islemID.Value);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Bir hata oluştu: {ex.Message}");
+            }
+
+            return RedirectToAction("AdminPanel");
+        }
+
+        [HttpPost]
+        public IActionResult CalisanEkleGuncelle(int? calisanID, string calisanAd, int uzmanlikID, bool musaitlik, string islem)
+        {
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    if (islem == "ekle") // Yeni çalışan ekle
+                    {
+                        var command = new NpgsqlCommand(
+                            "INSERT INTO Calisanlar (CalisanAd, UzmanlikID, Musaitlik) VALUES (@CalisanAd, @UzmanlikID, @Musaitlik)",
+                            connection);
+
+                        command.Parameters.AddWithValue("@CalisanAd", calisanAd);
+                        command.Parameters.AddWithValue("@UzmanlikID", uzmanlikID);
+                        command.Parameters.AddWithValue("@Musaitlik", musaitlik);
+                        command.ExecuteNonQuery();
+                    }
+                    else if (islem == "guncelle" && calisanID.HasValue) // Güncelleme
+                    {
+                        var command = new NpgsqlCommand(
+                            "UPDATE Calisanlar SET CalisanAd = @CalisanAd, UzmanlikID = @UzmanlikID, Musaitlik = @Musaitlik WHERE CalisanID = @CalisanID",
+                            connection);
+
+                        command.Parameters.AddWithValue("@CalisanAd", calisanAd);
+                        command.Parameters.AddWithValue("@UzmanlikID", uzmanlikID);
+                        command.Parameters.AddWithValue("@Musaitlik", musaitlik);
+                        command.Parameters.AddWithValue("@CalisanID", calisanID.Value);
+                        command.ExecuteNonQuery();
+                    }
+                    else if (islem == "sil" && calisanID.HasValue) // Silme
+                    {
+                        var command = new NpgsqlCommand(
+                            "DELETE FROM Calisanlar WHERE CalisanID = @CalisanID",
+                            connection);
+
+                        command.Parameters.AddWithValue("@CalisanID", calisanID.Value);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Bir hata oluştu: {ex.Message}");
+            }
+
+            return RedirectToAction("AdminPanel"); // Yönlendirme
+        }
+
+        [HttpPost]
+        public IActionResult KullaniciEkleGuncelle(int? kullaniciID, string adSoyad, string email, string sifre, bool rol, string islem)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                if (islem == "ekle")
+                {
+                    // Yeni kullanıcı ekle
+                    var command = new NpgsqlCommand(
+                        "INSERT INTO Kullanicilar (AdSoyad, Email, Sifre, IsAdmin) VALUES (@AdSoyad, @Email, @Sifre, @IsAdmin)", connection);
+                    command.Parameters.AddWithValue("@AdSoyad", adSoyad);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Sifre", sifre);
+                    command.Parameters.AddWithValue("@IsAdmin", rol);
+                    command.ExecuteNonQuery();
+                }
+                else if (islem == "guncelle" && kullaniciID.HasValue)
+                {
+                    // Kullanıcıyı güncelle
+                    var command = new NpgsqlCommand(
+                        "UPDATE Kullanicilar SET AdSoyad = @AdSoyad, Email = @Email, Sifre = @Sifre, IsAdmin = @IsAdmin WHERE KullaniciID = @KullaniciID", connection);
+                    command.Parameters.AddWithValue("@AdSoyad", adSoyad);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Sifre", sifre);
+                    command.Parameters.AddWithValue("@IsAdmin", rol);
+                    command.Parameters.AddWithValue("@KullaniciID", kullaniciID.Value);
+                    command.ExecuteNonQuery();
+                }
+                else if (islem == "sil" && kullaniciID.HasValue)
+                {
+                    // Kullanıcıyı sil
+                    var command = new NpgsqlCommand("DELETE FROM Kullanicilar WHERE KullaniciID = @KullaniciID", connection);
+                    command.Parameters.AddWithValue("@KullaniciID", kullaniciID.Value);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            return RedirectToAction("AdminPanel"); // İşlem tamamlandığında admin paneline yönlendir
+        }
+
+
+
+        [HttpPost]
+        public IActionResult RandevuOnayla(int randevuID, string durum)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = new NpgsqlCommand(
+                    "UPDATE Randevu SET Durum = @Durum WHERE RandevuID = @RandevuID",
+                    connection);
+
+                command.Parameters.AddWithValue("@Durum", durum);  // "Onaylandı" veya "Reddedildi"
+                command.Parameters.AddWithValue("@RandevuID", randevuID);
+
+                command.ExecuteNonQuery();  // Sorguyu çalıştırıyoruz
+            }
+
+            return RedirectToAction("AdminPanel");  // Durum güncelleme sonrası Admin Paneline yönlendir
+        }
+
+
+
 
         // Kullanıcı Kaydı
         public IActionResult KayitOl()
@@ -274,12 +528,12 @@ namespace kuafordeneme.Controllers
                     // Veritabanına kaydediyoruz
                     command.ExecuteNonQuery();
 
-                    TempData["Success"] = "Kayıt başarılı! Giriş yapabilirsiniz.";
+                    ViewData["Success"] = "Kayıt başarılı! Giriş yapabilirsiniz.";
                     return RedirectToAction("GirisYap"); // Kayıt işlemi başarılıysa giriş sayfasına yönlendirilir
                 }
                 catch (Exception ex)
                 {
-                    TempData["Error"] = "Kayıt sırasında bir hata oluştu!";
+                    ViewData["Error"] = "Kayıt sırasında bir hata oluştu!";
                     Console.WriteLine($"Hata: {ex.Message}");
                 }
             }
