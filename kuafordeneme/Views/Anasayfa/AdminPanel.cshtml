@@ -23,6 +23,58 @@
 
     <!-- Sekme İçerikleri -->
     <div class="tab-content mt-4" id="adminTabsContent">
+        <!-- Randevu Onayı -->
+        <div class="tab-pane fade" id="randevu" role="tabpanel">
+            <h5>Randevu Onayı</h5>
+            <p>Bekleyen randevuları onayla veya iptal et.</p>
+
+            <div id="randevuTable">
+                @if (ViewBag.Randevular != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Müşteri Adı</th>
+                                <th>İşlem</th>
+                                <th>Çalışan</th>
+                                <th>Tarih ve Saat</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var randevu in (List<RandevuViewModel>)ViewBag.Randevular)
+                            {
+                                <tr>
+                                    <td>@randevu.RandevuID</td>
+                                    <td>@randevu.KullaniciAd</td>
+                                    <td>@randevu.IslemAd</td>
+                                    <td>@randevu.CalisanAd</td>
+                                    <td>@randevu.RandevuZamani</td>
+                                    <td>@randevu.Durum</td>
+                                    <td>
+                                        <form method="post" action="/Admin/RandevuOnayRed">
+                                            <input type="hidden" name="randevuID" value="@randevu.RandevuID" />
+                                            <button type="submit" name="islem" value="onayla" class="btn btn-success">Onayla</button>
+                                            <button type="submit" name="islem" value="red" class="btn btn-danger">Red</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Randevu bulunamadı.</p>
+                }
+            </div>
+        </div>
+
+
+    <!-- Sekme İçerikleri -->
+    <div class="tab-content mt-4" id="adminTabsContent">
         <!-- İşlem Yönetimi -->
         <div class="tab-pane fade show active" id="islem" role="tabpanel">
             <h5>İşlem Yönetimi</h5>
@@ -232,5 +284,55 @@
                 }
             </div>
         </div>
+        <div class="tab-pane fade" id="randevu" role="tabpanel">
+            <h5>Randevu Onayı</h5>
+            <p>Bekleyen randevuları onayla veya iptal et.</p>
+
+            <div id="randevuTable">
+                @if (ViewBag.Randevular != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Müşteri Adı</th>
+                                <th>İşlem</th>
+                                <th>Çalışan</th>
+                                <th>Tarih ve Saat</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var randevu in (List<RandevuViewModel>)ViewBag.Randevular)
+                            {
+                                <tr>
+                                    <td>@randevu.RandevuID</td>
+                                    <td>@randevu.KullaniciAd</td>
+                                    <td>@randevu.IslemAd</td>
+                                    <td>@randevu.CalisanAd</td>
+                                    <td>@randevu.RandevuZamani</td>
+                                    <td>@randevu.Durum</td>
+                                    <td>
+                                        <form method="post" action="/Admin/RandevuOnayRed">
+                                            <input type="hidden" name="randevuID" value="@randevu.RandevuID" />
+                                            <button type="submit" name="islem" value="onayla" class="btn btn-success">Onayla</button>
+                                            <button type="submit" name="islem" value="red" class="btn btn-danger">Red</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Randevu bulunamadı.</p>
+                }
+            </div>
+        </div>
+
+
+
     </div>
 </div>

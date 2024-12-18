@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using kuafordeneme.Data; // ApplicationDbContext doðru namespace altýnda olmalý
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +11,10 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;                // Güvenlik
     options.Cookie.IsEssential = true;             // Çerezler gerekli
 });
+
+// **Entity Framework için baðlantý ekle**
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); // PostgreSQL kullanýmý
 
 var app = builder.Build();
 

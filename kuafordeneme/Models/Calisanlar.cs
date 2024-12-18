@@ -1,7 +1,10 @@
-﻿namespace kuafordeneme.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace kuafordeneme.Models
 {
     public class Calisanlar
     {
+        [Key]
         public int CalisanID { get; set; }           // Çalışan ID (Primary Key)
         public string CalisanAd { get; set; }        // Çalışanın adı
         public int UzmanlikID { get; set; }          // Uzmanlık (Foreign Key to Islem)
