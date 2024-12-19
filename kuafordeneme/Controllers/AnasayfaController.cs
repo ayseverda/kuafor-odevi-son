@@ -121,6 +121,11 @@ namespace kuafordeneme.Controllers
             return View(); // Hatalı girişte aynı sayfaya döner
         }
 
+        public IActionResult KayitOl()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> KayitOl(string adSoyad, string email, string sifre, string sifreOnay)
@@ -164,61 +169,52 @@ namespace kuafordeneme.Controllers
             return RedirectToAction("GirisYap", "Anasayfa");
         }
 
-
-
-        [HttpGet]
-        public IActionResult RandevuAl()
+        public async Task<IActionResult> RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
         {
-            // İşlemleri al
-            var islemler = _context.Islemler.ToList();
-            ViewBag.Islemler = islemler;
-
-            // Çalışanları al ve sadece müsait olanları göster
-            var calisanlar = _context.Calisanlar.Where(c => c.Musaitlik).ToList();
-            ViewBag.Calisanlar = calisanlar;
-
-            return View();
-        }
-            [HttpPost]
-            public IActionResult RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
+            if (ModelState.IsValid)
             {
-                var kullaniciID = 1; // Bu, o anki oturumdaki kullanıcının ID'si olmalı.
-                var islemSuresi = 30; // Bu değeri işlemin süresine göre dinamik almak gerekebilir.
+                // Kullanıcıyı bul
+                var kullanici = await _context.Kullanicilar
+                                              .FirstOrDefaultAsync(k => k.AdSoyad == adSoyad);
 
-                var calisan = _context.Calisanlar.FirstOrDefault(c => c.CalisanID == calisanID);
-
-                if (calisan == null || !calisan.Musaitlik)
+                if (kullanici == null)
                 {
-                    TempData["Error"] = "Bu çalışan o saatte müsait değil!";
+                    TempData["Error"] = "Kullanıcı bulunamadı.";
                     return RedirectToAction("RandevuAl");
                 }
 
-                // Randevu bitiş zamanını hesapla (randevu süresi kadar)
-                DateTime randevuBitisZamani = randevuZamani.AddMinutes(islemSuresi);
+                // Eğer zaman belirtilmemişse (Unspecified), UTC'ye dönüştür
+                if (randevuZamani.Kind == DateTimeKind.Unspecified)
+                {
+                    randevuZamani = DateTime.SpecifyKind(randevuZamani, DateTimeKind.Utc);
+                }
 
-                // Yeni randevu oluştur
+                // Randevu oluşturma işlemi
                 var randevu = new Randevu
                 {
-                    KullaniciID = kullaniciID,
+                    KullaniciID = kullanici.KullaniciID,
                     IslemID = islemID,
                     CalisanID = calisanID,
                     RandevuZamani = randevuZamani,
-                    RandevuBitisZamani = randevuBitisZamani,
+                    RandevuBitisZamani = randevuZamani.AddMinutes(30), // Örnek olarak 30 dakikalık işlem süresi
                     Durum = "Bekliyor"
                 };
 
-                // Randevuyu veritabanına kaydet
                 _context.Randevular.Add(randevu);
+                await _context.SaveChangesAsync();
 
-                // Çalışanın müsaitlik durumunu değiştirme (Randevu alındığında)
-                calisan.Musaitlik = false;
-
-                // Değişiklikleri kaydet
-                _context.SaveChanges();
-
-                TempData["Success"] = "Randevunuz başarıyla alındı!";
+                TempData["Success"] = "Randevunuz başarıyla alındı.";
                 return RedirectToAction("RandevuAl");
             }
+
+            // Model valid değilse islemleri ve calisanlari tekrar gönder
+            ViewBag.Islemler = _context.Islemler.ToList();
+            ViewBag.Calisanlar = _context.Calisanlar.ToList();
+            TempData["Error"] = "Lütfen tüm alanları doldurun.";
+            return View();
+        }
+
+
 
         public async Task<IActionResult> AdminPanel()
         {
@@ -303,7 +299,7 @@ namespace kuafordeneme.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CalisanEkleGuncelle(int? calisanID, string calisanAd, int uzmanlikID, bool musaitlik, string islem)
+        public async Task<IActionResult> CalisanEkleGuncelle(int? calisanID, string calisanAd, int uzmanlikID, bool musaitlik, string islem,int gunlukKazanc)
         {
             try
             {
@@ -312,8 +308,9 @@ namespace kuafordeneme.Controllers
                     var yeniCalisan = new Calisanlar
                     {
                         CalisanAd = calisanAd,
-                        UzmanlikID = uzmanlikID,
-                        Musaitlik = musaitlik
+                        UzmanlikID = uzmanlikID,  // Valid Islem ID olmalı
+                        Musaitlik = musaitlik,
+                        GunlukKazanc = gunlukKazanc,
                     };
                     _context.Calisanlar.Add(yeniCalisan);
                 }
@@ -392,7 +389,7 @@ namespace kuafordeneme.Controllers
 
             return RedirectToAction("AdminPanel");
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> RandevuOnayRed(int randevuID, string islem)
         {
