@@ -5,12 +5,56 @@
       "PackagePath": "staticwebassets\\kuafordeneme.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\0610fbb5-d12c-4578-ae7a-b8b404cd8c1f.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\0610fbb5-d12c-4578-ae7a-b8b404cd8c1f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\13e5977a-d0e3-4f57-b749-41ca1982c9b7.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\13e5977a-d0e3-4f57-b749-41ca1982c9b7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\52d9e3f9-03b4-41b3-8ad0-13a165e777cf.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\52d9e3f9-03b4-41b3-8ad0-13a165e777cf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\benn.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\benn.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\boya.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\boya.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\ce711ed2-89f7-4f37-90ae-0661f1112a95.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\ce711ed2-89f7-4f37-90ae-0661f1112a95.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\ceb45f81-760c-415d-b211-fe03b7706ac7.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\ceb45f81-760c-415d-b211-fe03b7706ac7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\dce89231-78bc-46a3-9b1e-5fdfbe84c8de.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\dce89231-78bc-46a3-9b1e-5fdfbe84c8de.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\fec842f7-f43e-4f56-9329-b7ffdc63c810.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\fec842f7-f43e-4f56-9329-b7ffdc63c810.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\Uploads\\winx2.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\winx2.jpg"
+    },
+    {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\agda6.jpg",
+      "PackagePath": "staticwebassets\\images\\agda6.jpg"
     },
     {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\bakim.jpg",
@@ -21,12 +65,24 @@
       "PackagePath": "staticwebassets\\images\\boya.jpg"
     },
     {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\images.jpg",
+      "PackagePath": "staticwebassets\\images\\images.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\kas.jpg",
+      "PackagePath": "staticwebassets\\images\\kas.jpg"
+    },
+    {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\kesim.jpg",
       "PackagePath": "staticwebassets\\images\\kesim.jpg"
     },
     {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\makeup.jpg",
       "PackagePath": "staticwebassets\\images\\makeup.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\sacbakimi.jpg",
+      "PackagePath": "staticwebassets\\images\\sacbakimi.jpg"
     },
     {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\tirnak.jpg",

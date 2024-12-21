@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Yapay Zeka";
+}
+
+<h2>Yapay Zeka - Saç Stili Ekleme</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="photo">Fotoğraf Yükleyin:</label>
+        <input type="file" name="photo" id="photo" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Yükle ve İşle</button>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["Error"]
+    </div>
+}
+
+@if (ViewBag.ImageUrl != null)
+{
+    <div class="mt-3">
+        <h3>İşlenmiş Fotoğraf:</h3>
+        <img src="@ViewBag.ImageUrl" alt="Processed Image" class="img-fluid" />
+    </div>
+}

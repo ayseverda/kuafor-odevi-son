@@ -22,6 +22,37 @@ namespace kuafordeneme.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Calisanlar", b =>
+                {
+                    b.Property<int>("CalisanID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CalisanID"));
+
+                    b.Property<string>("CalisanAd")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("GunlukKazanc")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("IslemID")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Musaitlik")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("UzmanlikID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CalisanID");
+
+                    b.HasIndex("IslemID");
+
+                    b.ToTable("Calisanlar");
+                });
+
             modelBuilder.Entity("Randevu", b =>
                 {
                     b.Property<int>("RandevuID")
@@ -58,37 +89,6 @@ namespace kuafordeneme.Migrations
                     b.HasIndex("KullaniciID");
 
                     b.ToTable("Randevular");
-                });
-
-            modelBuilder.Entity("kuafordeneme.Models.Calisanlar", b =>
-                {
-                    b.Property<int>("CalisanID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CalisanID"));
-
-                    b.Property<string>("CalisanAd")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("GunlukKazanc")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("IslemID")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Musaitlik")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("UzmanlikID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("CalisanID");
-
-                    b.HasIndex("IslemID");
-
-                    b.ToTable("Calisanlar");
                 });
 
             modelBuilder.Entity("kuafordeneme.Models.Islemler", b =>
@@ -186,9 +186,18 @@ namespace kuafordeneme.Migrations
                     b.ToTable("Mesajlar");
                 });
 
+            modelBuilder.Entity("Calisanlar", b =>
+                {
+                    b.HasOne("kuafordeneme.Models.Islemler", "Islem")
+                        .WithMany("Calisanlar")
+                        .HasForeignKey("IslemID");
+
+                    b.Navigation("Islem");
+                });
+
             modelBuilder.Entity("Randevu", b =>
                 {
-                    b.HasOne("kuafordeneme.Models.Calisanlar", "Calisan")
+                    b.HasOne("Calisanlar", "Calisan")
                         .WithMany()
                         .HasForeignKey("CalisanID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -213,17 +222,6 @@ namespace kuafordeneme.Migrations
                     b.Navigation("Kullanici");
                 });
 
-            modelBuilder.Entity("kuafordeneme.Models.Calisanlar", b =>
-                {
-                    b.HasOne("kuafordeneme.Models.Islemler", "Islem")
-                        .WithMany()
-                        .HasForeignKey("IslemID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Islem");
-                });
-
             modelBuilder.Entity("kuafordeneme.Models.Mesaj", b =>
                 {
                     b.HasOne("kuafordeneme.Models.Kullanicilar", "Kullanici")
@@ -233,6 +231,11 @@ namespace kuafordeneme.Migrations
                         .IsRequired();
 
                     b.Navigation("Kullanici");
+                });
+
+            modelBuilder.Entity("kuafordeneme.Models.Islemler", b =>
+                {
+                    b.Navigation("Calisanlar");
                 });
 #pragma warning restore 612, 618
         }

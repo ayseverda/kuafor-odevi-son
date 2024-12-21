@@ -5,6 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using System.Text;
+using System.Net.Http;
+
 
 
 namespace kuafordeneme.Controllers
@@ -168,6 +172,77 @@ namespace kuafordeneme.Controllers
             HttpContext.Session.Clear(); // Tüm session bilgilerini temizle
             return RedirectToAction("GirisYap", "Anasayfa");
         }
+        private readonly string apiKey = "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"; // OpenAI API Anahtarınızı buraya ekleyin
+
+        // GET: /Anasayfa/YapayZeka
+        public IActionResult YapayZeka()
+        {
+            return View();
+        }
+
+        // POST: /Anasayfa/YapayZeka
+        [HttpPost]
+        public async Task<IActionResult> YapayZeka(IFormFile photo)
+{
+    if (photo == null || photo.Length == 0)
+    {
+        TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin.";
+        return RedirectToAction("YapayZeka");
+    }
+
+    try
+    {
+        // Fotoğrafı kaydet
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await photo.CopyToAsync(stream);
+        }
+
+        // OpenAI API'ye istek göndermek için HTTP istemcisi
+        var client = new HttpClient();
+
+        var form = new MultipartFormDataContent();
+        var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filePath));
+        form.Add(fileContent, "image", uniqueFileName);
+
+        // OpenAI API anahtarı
+        client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_OPENAI_API_KEY");
+
+        // Görsel düzenleme isteği
+        var response = await client.PostAsync("https://api.openai.com/v1/images/generations", form);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            TempData["Error"] = "Saç stili eklenirken bir hata oluştu.";
+            return RedirectToAction("YapayZeka");
+        }
+
+        // API'den gelen yanıtı al
+        var responseBody = await response.Content.ReadAsStringAsync();
+        var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseBody);
+        string updatedImageUrl = jsonResponse.data[0].url;
+
+        // Yeni fotoğrafı kullanıcıya göster
+        ViewBag.ImageUrl = updatedImageUrl;
+
+        return View();
+    }
+    catch (Exception ex)
+    {
+        TempData["Error"] = "Bir hata oluştu: " + ex.Message;
+        return RedirectToAction("YapayZeka");
+    }
+}
+
 
         public async Task<IActionResult> RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
         {
