@@ -337,39 +337,39 @@ namespace kuafordeneme.Controllers
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
         }
-     public async Task<IActionResult> Randevularim()
-{
-    // Giriş yapmış kullanıcıyı kontrol et
-    var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
+        public async Task<IActionResult> Randevularim()
+        {
+            // Giriş yapmış kullanıcıyı kontrol et
+            var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
 
-    // Eğer session'da kullanıcı ID'si yoksa, giriş yapılmamış demektir
-    if (kullaniciID == null)
-    {
-        TempData["Error"] = "Randevularınızı görmek için giriş yapmalısınız.";
-        return RedirectToAction("GirisYap");
-    }
+            // Eğer session'da kullanıcı ID'si yoksa, giriş yapılmamış demektir
+            if (kullaniciID == null)
+            {
+                TempData["Error"] = "Randevularınızı görmek için giriş yapmalısınız.";
+                return RedirectToAction("GirisYap");
+            }
 
-    // Kullanıcıyı veritabanından kullaniciID ile bul
-    var kullanici = await _context.Kullanicilar
-                                  .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
+            // Kullanıcıyı veritabanından kullaniciID ile bul
+            var kullanici = await _context.Kullanicilar
+                                          .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
 
-    if (kullanici == null)
-    {
-        TempData["Error"] = "Kullanıcı bulunamadı.";
-        return RedirectToAction("Index");
-    }
+            if (kullanici == null)
+            {
+                TempData["Error"] = "Kullanıcı bulunamadı.";
+                return RedirectToAction("Index");
+            }
 
-    // Kullanıcının randevularını al
-    var randevular = await _context.Randevular
-                                   .Where(r => r.KullaniciID == kullanici.KullaniciID)
-                                   .Include(r => r.Islem)
-                                   .Include(r => r.Calisan)
-                                   .ToListAsync();
+            // Kullanıcının randevularını al
+            var randevular = await _context.Randevular
+                                           .Where(r => r.KullaniciID == kullanici.KullaniciID)
+                                           .Include(r => r.Islem)
+                                           .Include(r => r.Calisan)
+                                           .ToListAsync();
 
-    ViewBag.Randevular = randevular;
+            ViewBag.Randevular = randevular;
 
-    return View();
-}
+            return View();
+        }
 
 
 
@@ -456,7 +456,7 @@ namespace kuafordeneme.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CalisanEkleGuncelle(int? calisanID, string calisanAd, int uzmanlikID, bool musaitlik, string islem,int gunlukKazanc)
+        public async Task<IActionResult> CalisanEkleGuncelle(int? calisanID, string calisanAd, int uzmanlikID, bool musaitlik, string islem, int gunlukKazanc)
         {
             try
             {
@@ -546,54 +546,41 @@ namespace kuafordeneme.Controllers
 
             return RedirectToAction("AdminPanel");
         }
-        
-      
+
         [HttpPost]
         public async Task<IActionResult> RandevuOnayRed(int randevuID, string islem)
         {
             try
             {
-                // Randevuyu veritabanından al
-                var randevu = await _context.Randevular
-                    .FirstOrDefaultAsync(r => r.RandevuID == randevuID);
-
-                if (randevu != null && randevu.Durum == "Bekliyor")
+                var randevu = await _context.Randevular.FindAsync(randevuID);
+                if (randevu == null)
                 {
-                    // İşlem türüne göre durumu güncelle
-                    if (islem == "onayla")
-                    {
-                        randevu.Durum = "Onaylandı";
-                    }
-                    else if (islem == "red")
-                    {
-                        randevu.Durum = "Reddedildi";
-                    }
-
-                    // Güncellenmiş randevuyu kaydet
-                    _context.Update(randevu);
-                    await _context.SaveChangesAsync();
-
-                    TempData["Message"] = "Randevu durumu başarıyla güncellendi.";
+                    TempData["Error"] = "Randevu bulunamadı.";
+                    return RedirectToAction("AdminPanel", "Anasayfa");
                 }
-                else
+
+                // Duruma göre işlem yap
+                if (islem == "onayla")
                 {
-                    TempData["Error"] = "Randevu bulunamadı veya zaten işlem görmüş.";
+                    randevu.Durum = "Onaylı";  // Onayla
+                    TempData["Message"] = "Randevu onaylandı.";
                 }
+                else if (islem == "red")
+                {
+                    randevu.Durum = "Red";  // Red
+                    TempData["Message"] = "Randevu reddedildi.";
+                }
+
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Bir hata oluştu: " + ex.Message;
             }
 
-            // AdminPanel sayfasına yönlendir
-            return RedirectToAction("AdminPanel");
+            return RedirectToAction("AdminPanel", "Anasayfa");  // İşlem sonrası AdminPanel'e yönlendir
         }
+
     }
-
-
-
-
-
-
 }
        
