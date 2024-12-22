@@ -273,6 +273,8 @@ namespace kuafordeneme.Controllers
             ViewBag.Calisanlar = await _context.Calisanlar.ToListAsync();
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
         {
@@ -286,43 +288,60 @@ namespace kuafordeneme.Controllers
                     TempData["Error"] = "Kullanıcı bulunamadı.";
                     return RedirectToAction("RandevuAl");
                 }
+                var islem = await _context.Islemler
+                                 .FirstOrDefaultAsync(i => i.IslemID == islemID);
 
-                // Kuaförün çalışma saatlerini kontrol et
-                if (randevuZamani.Hour < 9 || randevuZamani.Hour >= 18)
+                if (islem == null)
                 {
-                    TempData["Error"] = "Randevu saatleri 09:00 - 18:00 arasında olmalıdır.";
+                    TempData["Error"] = "İşlem bulunamadı.";
                     return RedirectToAction("RandevuAl");
                 }
 
-                // Eğer zaman belirtilmemişse UTC'ye dönüştür
                 if (randevuZamani.Kind == DateTimeKind.Unspecified)
                 {
                     randevuZamani = DateTime.SpecifyKind(randevuZamani, DateTimeKind.Utc);
                 }
 
-                // Aynı çalışan için çakışan randevuları kontrol et
-                var mevcutRandevu = await _context.Randevular
-                    .FirstOrDefaultAsync(r =>
-                        r.CalisanID == calisanID &&
-                        r.RandevuZamani <= randevuZamani &&
-                        r.RandevuBitisZamani > randevuZamani);
 
-                if (mevcutRandevu != null)
+                var salonCalismaSaatleri = new { BaslangicSaati = 9, BitisSaati = 18 };
+                if (randevuZamani.Hour < salonCalismaSaatleri.BaslangicSaati || randevuZamani.Hour >= salonCalismaSaatleri.BitisSaati)
                 {
-                    TempData["Error"] = "Seçtiğiniz çalışan bu saatte başka bir randevuda.";
+                    TempData["Error"] = "Randevu saatleri 09:00 - 18:00 arasında olmalıdır.";
+                    return RedirectToAction("RandevuAl");
+                }
+              var randevuBitisZamani = randevuZamani.AddMinutes(islem.IslemSuresi);
+
+        // Çakışma kontrolü
+        var mevcutRandevu = await _context.Randevular
+            .Where(r => r.CalisanID == calisanID &&
+                        (r.RandevuZamani < randevuBitisZamani && r.RandevuBitisZamani > randevuZamani))
+            .FirstOrDefaultAsync();
+
+        if (mevcutRandevu != null)
+        {
+            TempData["Error"] = "Seçtiğiniz çalışan bu saat aralığında başka bir randevuda.";
+            return RedirectToAction("RandevuAl");
+        }
+
+
+                var ikiHaftaSonra = DateTime.Now.AddDays(14);
+                if (randevuZamani < DateTime.Now || randevuZamani > ikiHaftaSonra)
+                {
+                    TempData["Error"] = "Randevu yalnızca sonraki 2 hafta için alınabilir.";
                     return RedirectToAction("RandevuAl");
                 }
 
-                // Randevu oluştur
+                // İşlem süresini kullanarak randevu bitiş zamanı hesaplama
                 var randevu = new Randevu
                 {
                     KullaniciID = kullanici.KullaniciID,
                     IslemID = islemID,
                     CalisanID = calisanID,
                     RandevuZamani = randevuZamani,
-                    RandevuBitisZamani = randevuZamani.AddMinutes(30), // Varsayılan işlem süresi
+                    RandevuBitisZamani = randevuZamani.AddMinutes(islem.IslemSuresi),
                     Durum = "Bekliyor"
                 };
+
 
                 _context.Randevular.Add(randevu);
                 await _context.SaveChangesAsync();
@@ -337,21 +356,19 @@ namespace kuafordeneme.Controllers
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
         }
+
         public async Task<IActionResult> Randevularim()
         {
-            // Giriş yapmış kullanıcıyı kontrol et
             var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
 
-            // Eğer session'da kullanıcı ID'si yoksa, giriş yapılmamış demektir
             if (kullaniciID == null)
             {
                 TempData["Error"] = "Randevularınızı görmek için giriş yapmalısınız.";
                 return RedirectToAction("GirisYap");
             }
 
-            // Kullanıcıyı veritabanından kullaniciID ile bul
             var kullanici = await _context.Kullanicilar
-                                          .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
+                                           .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
 
             if (kullanici == null)
             {
@@ -359,18 +376,18 @@ namespace kuafordeneme.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Kullanıcının randevularını al
+            // Randevuları veritabanından yeniden alıyoruz, böylece en güncel hali elde ediyoruz.
             var randevular = await _context.Randevular
                                            .Where(r => r.KullaniciID == kullanici.KullaniciID)
                                            .Include(r => r.Islem)
                                            .Include(r => r.Calisan)
                                            .ToListAsync();
 
+            // Veriyi ViewBag'e aktaralım
             ViewBag.Randevular = randevular;
 
             return View();
         }
-
 
 
         public async Task<IActionResult> AdminPanel()
@@ -546,7 +563,6 @@ namespace kuafordeneme.Controllers
 
             return RedirectToAction("AdminPanel");
         }
-
         [HttpPost]
         public async Task<IActionResult> RandevuOnayRed(int randevuID, string islem)
         {

@@ -208,7 +208,7 @@
                                 <th>Ad Soyad</th>
                                 <th>E-posta</th>
                                 <th>Rol</th>
-                                <th>İşlemler</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -219,9 +219,7 @@
                                     <td>@kullanici.AdSoyad</td>
                                     <td>@kullanici.Email</td>
                                     <td>@(kullanici.IsAdmin ? "Admin" : "Kullanıcı")</td>
-                                    <td>
-                                        <a href="#">Düzenle</a> | <a href="#">Sil</a>
-                                    </td>
+                                    
                                 </tr>
                             }
                         </tbody>
@@ -237,74 +235,77 @@
         <!-- RANDEVU -->
         form
 
-            <div class="tab-pane fade" id="randevu" role="tabpanel">
-                <h5>Randevu Onayı</h5>
-                <p>Bekleyen randevuları onayla veya iptal et.</p>
+        <div class="tab-pane fade" id="randevu" role="tabpanel">
+            <h5>Randevu Onayı</h5>
+            <p>Bekleyen randevuları onayla veya iptal et.</p>
 
-                <!-- Başarı veya Hata Mesajları -->
-                @if (TempData["Message"] != null)
-                {
-                    <div class="alert alert-success">
-                        @TempData["Message"]
-                    </div>
-                }
-                @if (TempData["Error"] != null)
-                {
-                    <div class="alert alert-danger">
-                        @TempData["Error"]
-                    </div>
-                }
-
-                <div id="randevuTable">
-                    @if (ViewBag.Randevular != null && ((List<RandevuViewModel>)ViewBag.Randevular).Count > 0)
-                    {
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Müşteri Adı</th>
-                                    <th>İşlem</th>
-                                    <th>Çalışan</th>
-                                    <th>Tarih ve Saat</th>
-                                    <th>Durum</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var randevu in (List<RandevuViewModel>)ViewBag.Randevular)
-                                {
-                                    <tr>
-                                        <td>@randevu.RandevuID</td>
-                                        <td>@randevu.KullaniciAd</td>
-                                        <td>@randevu.IslemAd</td>
-                                        <td>@randevu.CalisanAd</td>
-                                        <td>@randevu.RandevuZamani</td>
-                                        <td>@randevu.Durum</td>
-                                        <td>
-                                            @if (randevu.Durum == "Bekliyor")
-                                            {
-                                                <form method="post" asp-action="RandevuOnayRed" asp-controller="Anasayfa">
-                                                    <input type="hidden" name="randevuID" value="@randevu.RandevuID" />
-                                                    <button type="submit" name="islem" value="onayla" class="btn btn-success">Onayla</button>
-                                                    <button type="submit" name="islem" value="red" class="btn btn-danger">Red</button>
-                                                </form>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-secondary">@randevu.Durum</span>
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-                    else
-                    {
-                        <p>Bekleyen randevu bulunamadı.</p>
-                    }
+            <!-- Başarı veya Hata Mesajları -->
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Message"]
                 </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Error"]
+                </div>
+            }
+
+            <div id="randevuTable">
+                @if (ViewBag.Randevular != null && ((List<RandevuViewModel>)ViewBag.Randevular).Count > 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Müşteri Adı</th>
+                                <th>İşlem</th>
+                                <th>Çalışan</th>
+                                <th>Tarih ve Saat</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var randevu in (List<RandevuViewModel>)ViewBag.Randevular)
+                            {
+                                <tr>
+                                    <td>@randevu.RandevuID</td>
+                                    <td>@randevu.KullaniciAd</td>
+                                    <td>@randevu.IslemAd</td>
+                                    <td>@randevu.CalisanAd</td>
+                                    <td>@randevu.RandevuZamani</td>
+                                    <td>@randevu.Durum</td>
+                                    <td>
+                                        @if (randevu.Durum == "Bekliyor")
+                                        {
+                                            <form method="post" asp-action="RandevuOnayRed" asp-controller="Anasayfa">
+                                                <input type="hidden" name="randevuID" value="@randevu.RandevuID" />
+                                                <button type="submit" name="islem" value="onayla" class="btn btn-success">Onayla</button>
+                                                <button type="submit" name="islem" value="red" class="btn btn-danger">Red</button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">@randevu.Durum</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Bekleyen randevu bulunamadı.</p>
+                }
             </div>
+        </div>
+
+
+
 
 
 

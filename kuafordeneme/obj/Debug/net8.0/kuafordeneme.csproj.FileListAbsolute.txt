@@ -170,3 +170,4 @@ C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\kuaforden
 C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\bin\Debug\net8.0\kuafordeneme.pdb
 C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\obj\Debug\net8.0\ref\kuafordeneme.dll
 C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\aysee\source\repos\kuafordeneme\kuafordeneme\bin\Debug\net8.0\System.Net.Http.Json.dll
