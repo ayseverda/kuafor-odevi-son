@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Randevularım</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>İşlem</th>
+                <th>Çalışan</th>
+                <th>Tarih ve Saat</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Randevular != null)
+            {
+                foreach (var randevu in (List<Randevu>)ViewBag.Randevular)
+                {
+                    <tr>
+                        <td>@randevu.RandevuID</td>
+                        <td>@randevu.Islem.IslemAd</td>
+                        <td>@randevu.Calisan.CalisanAd</td>
+                        <td>@randevu.RandevuZamani.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            @if (randevu.Durum == "Onaylandı")
+                            {
+                                <span class="badge bg-success">Onaylandı</span>
+                            }
+                            else if (randevu.Durum == "Reddedildi")
+                            {
+                                <span class="badge bg-danger">Reddedildi</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Bekliyor</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">Henüz randevunuz bulunmamaktadır.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

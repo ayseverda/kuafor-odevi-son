@@ -183,65 +183,65 @@ namespace kuafordeneme.Controllers
         // POST: /Anasayfa/YapayZeka
         [HttpPost]
         public async Task<IActionResult> YapayZeka(IFormFile photo)
-{
-    if (photo == null || photo.Length == 0)
-    {
-        TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin.";
-        return RedirectToAction("YapayZeka");
-    }
-
-    try
-    {
-        // Fotoğrafı kaydet
-        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-        if (!Directory.Exists(uploadsFolder))
         {
-            Directory.CreateDirectory(uploadsFolder);
+            if (photo == null || photo.Length == 0)
+            {
+                TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin.";
+                return RedirectToAction("YapayZeka");
+            }
+
+            try
+            {
+                // Fotoğrafı kaydet
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
+
+                // OpenAI API'ye istek göndermek için HTTP istemcisi
+                var client = new HttpClient();
+
+                var form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filePath));
+                form.Add(fileContent, "image", uniqueFileName);
+
+                // OpenAI API anahtarı
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_OPENAI_API_KEY");
+
+                // Görsel düzenleme isteği
+                var response = await client.PostAsync("https://api.openai.com/v1/images/generations", form);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    TempData["Error"] = "Saç stili eklenirken bir hata oluştu.";
+                    return RedirectToAction("YapayZeka");
+                }
+
+                // API'den gelen yanıtı al
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseBody);
+                string updatedImageUrl = jsonResponse.data[0].url;
+
+                // Yeni fotoğrafı kullanıcıya göster
+                ViewBag.ImageUrl = updatedImageUrl;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Bir hata oluştu: " + ex.Message;
+                return RedirectToAction("YapayZeka");
+            }
         }
-
-        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
-        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await photo.CopyToAsync(stream);
-        }
-
-        // OpenAI API'ye istek göndermek için HTTP istemcisi
-        var client = new HttpClient();
-
-        var form = new MultipartFormDataContent();
-        var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filePath));
-        form.Add(fileContent, "image", uniqueFileName);
-
-        // OpenAI API anahtarı
-        client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_OPENAI_API_KEY");
-
-        // Görsel düzenleme isteği
-        var response = await client.PostAsync("https://api.openai.com/v1/images/generations", form);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            TempData["Error"] = "Saç stili eklenirken bir hata oluştu.";
-            return RedirectToAction("YapayZeka");
-        }
-
-        // API'den gelen yanıtı al
-        var responseBody = await response.Content.ReadAsStringAsync();
-        var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseBody);
-        string updatedImageUrl = jsonResponse.data[0].url;
-
-        // Yeni fotoğrafı kullanıcıya göster
-        ViewBag.ImageUrl = updatedImageUrl;
-
-        return View();
-    }
-    catch (Exception ex)
-    {
-        TempData["Error"] = "Bir hata oluştu: " + ex.Message;
-        return RedirectToAction("YapayZeka");
-    }
-}
         [HttpGet]
         public async Task<IActionResult> GetCalisanlar(int islemID)
         {
@@ -337,6 +337,39 @@ namespace kuafordeneme.Controllers
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
         }
+     public async Task<IActionResult> Randevularim()
+{
+    // Giriş yapmış kullanıcıyı kontrol et
+    var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
+
+    // Eğer session'da kullanıcı ID'si yoksa, giriş yapılmamış demektir
+    if (kullaniciID == null)
+    {
+        TempData["Error"] = "Randevularınızı görmek için giriş yapmalısınız.";
+        return RedirectToAction("GirisYap");
+    }
+
+    // Kullanıcıyı veritabanından kullaniciID ile bul
+    var kullanici = await _context.Kullanicilar
+                                  .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
+
+    if (kullanici == null)
+    {
+        TempData["Error"] = "Kullanıcı bulunamadı.";
+        return RedirectToAction("Index");
+    }
+
+    // Kullanıcının randevularını al
+    var randevular = await _context.Randevular
+                                   .Where(r => r.KullaniciID == kullanici.KullaniciID)
+                                   .Include(r => r.Islem)
+                                   .Include(r => r.Calisan)
+                                   .ToListAsync();
+
+    ViewBag.Randevular = randevular;
+
+    return View();
+}
 
 
 
@@ -514,21 +547,37 @@ namespace kuafordeneme.Controllers
             return RedirectToAction("AdminPanel");
         }
         
+      
         [HttpPost]
         public async Task<IActionResult> RandevuOnayRed(int randevuID, string islem)
         {
             try
             {
-                var randevu = await _context.Randevular.FindAsync(randevuID);
-                if (randevu != null)
+                // Randevuyu veritabanından al
+                var randevu = await _context.Randevular
+                    .FirstOrDefaultAsync(r => r.RandevuID == randevuID);
+
+                if (randevu != null && randevu.Durum == "Bekliyor")
                 {
-                    randevu.Durum = islem == "onayla" ? "Onaylandı" : "Reddedildi";
+                    // İşlem türüne göre durumu güncelle
+                    if (islem == "onayla")
+                    {
+                        randevu.Durum = "Onaylandı";
+                    }
+                    else if (islem == "red")
+                    {
+                        randevu.Durum = "Reddedildi";
+                    }
+
+                    // Güncellenmiş randevuyu kaydet
+                    _context.Update(randevu);
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "Randevu durumu başarıyla güncellendi!";
+
+                    TempData["Message"] = "Randevu durumu başarıyla güncellendi.";
                 }
                 else
                 {
-                    TempData["Error"] = "Randevu bulunamadı.";
+                    TempData["Error"] = "Randevu bulunamadı veya zaten işlem görmüş.";
                 }
             }
             catch (Exception ex)
@@ -536,15 +585,15 @@ namespace kuafordeneme.Controllers
                 TempData["Error"] = "Bir hata oluştu: " + ex.Message;
             }
 
+            // AdminPanel sayfasına yönlendir
             return RedirectToAction("AdminPanel");
         }
-
-
-
-
-
-
     }
+
+
+
+
+
 
 }
        
