@@ -356,7 +356,6 @@ namespace kuafordeneme.Controllers
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
         }
-
         public async Task<IActionResult> Randevularim()
         {
             var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
@@ -390,6 +389,8 @@ namespace kuafordeneme.Controllers
         }
 
 
+
+
         public async Task<IActionResult> AdminPanel()
         {
             try
@@ -397,6 +398,7 @@ namespace kuafordeneme.Controllers
                 var islemler = await _context.Islemler.ToListAsync();
                 var calisanlar = await _context.Calisanlar.ToListAsync();
                 var kullanicilar = await _context.Kullanicilar.ToListAsync();
+
                 var randevular = await (from r in _context.Randevular
                                         join k in _context.Kullanicilar on r.KullaniciID equals k.KullaniciID
                                         join i in _context.Islemler on r.IslemID equals i.IslemID
@@ -411,10 +413,24 @@ namespace kuafordeneme.Controllers
                                             Durum = r.Durum
                                         }).ToListAsync();
 
+                // Verimlilik Hesaplama
+                var aylikKazanc = calisanlar.Select(c => new
+                {
+                    CalisanAd = c.CalisanAd,
+                    AylikKazanc = randevular
+                        .Where(r => r.CalisanAd == c.CalisanAd && r.RandevuZamani.Month == DateTime.Now.Month)
+                        .Sum(r =>
+                        {
+                            var islem = islemler.FirstOrDefault(i => i.IslemAd == r.IslemAd);
+                            return islem != null ? islem.Ucret : 0;
+                        })
+                }).ToList();
+
                 ViewBag.Islemler = islemler;
                 ViewBag.Calisanlar = calisanlar;
                 ViewBag.Kullanicilar = kullanicilar;
                 ViewBag.Randevular = randevular;
+                ViewBag.AylikKazanc = aylikKazanc;
             }
             catch (Exception ex)
             {
@@ -572,7 +588,7 @@ namespace kuafordeneme.Controllers
                 if (randevu == null)
                 {
                     TempData["Error"] = "Randevu bulunamadı.";
-                    return RedirectToAction("AdminPanel", "Anasayfa");
+                    return RedirectToAction("AdminPanel", "Anasayfa");  // Admin paneline geri dön
                 }
 
                 // Duruma göre işlem yap
@@ -594,8 +610,10 @@ namespace kuafordeneme.Controllers
                 TempData["Error"] = "Bir hata oluştu: " + ex.Message;
             }
 
-            return RedirectToAction("AdminPanel", "Anasayfa");  // İşlem sonrası AdminPanel'e yönlendir
+            return RedirectToAction("AdminPanel", "Anasayfa");  // Admin paneline yönlendirme
         }
+
+
 
     }
 }

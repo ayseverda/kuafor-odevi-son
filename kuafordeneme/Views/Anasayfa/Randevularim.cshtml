@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Randevularım";
 }
 
@@ -26,18 +26,21 @@
                         <td>@randevu.Calisan.CalisanAd</td>
                         <td>@randevu.RandevuZamani.ToString("dd.MM.yyyy HH:mm")</td>
                         <td>
-                            @if (randevu.Durum == "Onaylandı")
-                            {
-                                <span class="badge bg-success">Onaylandı</span>
-                            }
-                            else if (randevu.Durum == "Reddedildi")
-                            {
-                                <span class="badge bg-danger">Reddedildi</span>
-                            }
-                            else
-                            {
+                        <td>
+                                @if (randevu.Durum == "Onaylı")
+                                {
+                                <span class="badge bg-success">Onaylı</span>
+                                }
+                                else if (randevu.Durum == "Red")
+                                {
+                                <span class="badge bg-danger">Red</span>
+                                }
+                                else
+                                {
                                 <span class="badge bg-warning">Bekliyor</span>
-                            }
+                                }
+                        </td>
+
                         </td>
                     </tr>
                 }
