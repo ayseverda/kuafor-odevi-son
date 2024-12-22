@@ -30,3 +30,14 @@ app.MapControllerRoute(
     pattern: "{controller=Anasayfa}/{action=Index}/{id?}");
 
 app.Run();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+app.UseCors("AllowAll");

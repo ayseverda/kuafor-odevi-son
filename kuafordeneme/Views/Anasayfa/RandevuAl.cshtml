@@ -33,10 +33,6 @@
                             <label for="calisan" class="form-label">Çalışan Seçin:</label>
                             <select class="form-select" id="calisan" name="calisanID" required>
                                 <option value="">Çalışan Seçin</option>
-                                @foreach (var calisan in (List<Calisanlar>)ViewBag.Calisanlar)
-                                {
-                                    <option value="@calisan.CalisanID">@calisan.CalisanAd</option>
-                                }
                             </select>
                         </div>
 
@@ -69,4 +65,29 @@
     <div class="alert alert-success">
         @TempData["Success"]
     </div>
+}
+
+@section Scripts {
+    <script>
+        function getCalisanlar() {
+            const islemID = document.getElementById('islem').value;
+
+            fetch(`/Anasayfa/GetCalisanlar?islemID=${islemID}`)
+                .then(response => response.json())
+                .then(data => {
+                    const calisanSelect = document.getElementById('calisan');
+                    calisanSelect.innerHTML = '<option value="">Çalışan Seçin</option>';
+
+                    data.forEach(calisan => {
+                        const option = document.createElement('option');
+                        option.value = calisan.calisanID;
+                        option.textContent = `${calisan.calisanAd} (${calisan.musaitlik ? 'Müsait' : 'Meşgul'})`;
+                        calisanSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                });
+        }
+    </script>
 }

@@ -242,13 +242,42 @@ namespace kuafordeneme.Controllers
         return RedirectToAction("YapayZeka");
     }
 }
+        [HttpGet]
+        public async Task<IActionResult> GetCalisanlar(int islemID)
+        {
+            try
+            {
+                // Uzmanlık ID'sine göre çalışanları getir
+                var calisanlar = await _context.Calisanlar
+                    .Where(c => c.UzmanlikID == islemID)
+                    .Select(c => new
+                    {
+                        c.CalisanID,
+                        c.CalisanAd,
+                        c.Musaitlik
+                    })
+                    .ToListAsync();
 
+                return Json(calisanlar);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Hata: {ex.Message}");
+                return Json(new { message = $"Hata: {ex.Message}" });
+            }
+        }
 
+        public async Task<IActionResult> RandevuAl()
+        {
+            ViewBag.Islemler = await _context.Islemler.ToListAsync();
+            ViewBag.Calisanlar = await _context.Calisanlar.ToListAsync();
+            return View();
+        }
+        [HttpPost]
         public async Task<IActionResult> RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
         {
             if (ModelState.IsValid)
             {
-                // Kullanıcıyı bul
                 var kullanici = await _context.Kullanicilar
                                               .FirstOrDefaultAsync(k => k.AdSoyad == adSoyad);
 
@@ -258,20 +287,40 @@ namespace kuafordeneme.Controllers
                     return RedirectToAction("RandevuAl");
                 }
 
-                // Eğer zaman belirtilmemişse (Unspecified), UTC'ye dönüştür
+                // Kuaförün çalışma saatlerini kontrol et
+                if (randevuZamani.Hour < 9 || randevuZamani.Hour >= 18)
+                {
+                    TempData["Error"] = "Randevu saatleri 09:00 - 18:00 arasında olmalıdır.";
+                    return RedirectToAction("RandevuAl");
+                }
+
+                // Eğer zaman belirtilmemişse UTC'ye dönüştür
                 if (randevuZamani.Kind == DateTimeKind.Unspecified)
                 {
                     randevuZamani = DateTime.SpecifyKind(randevuZamani, DateTimeKind.Utc);
                 }
 
-                // Randevu oluşturma işlemi
+                // Aynı çalışan için çakışan randevuları kontrol et
+                var mevcutRandevu = await _context.Randevular
+                    .FirstOrDefaultAsync(r =>
+                        r.CalisanID == calisanID &&
+                        r.RandevuZamani <= randevuZamani &&
+                        r.RandevuBitisZamani > randevuZamani);
+
+                if (mevcutRandevu != null)
+                {
+                    TempData["Error"] = "Seçtiğiniz çalışan bu saatte başka bir randevuda.";
+                    return RedirectToAction("RandevuAl");
+                }
+
+                // Randevu oluştur
                 var randevu = new Randevu
                 {
                     KullaniciID = kullanici.KullaniciID,
                     IslemID = islemID,
                     CalisanID = calisanID,
                     RandevuZamani = randevuZamani,
-                    RandevuBitisZamani = randevuZamani.AddMinutes(30), // Örnek olarak 30 dakikalık işlem süresi
+                    RandevuBitisZamani = randevuZamani.AddMinutes(30), // Varsayılan işlem süresi
                     Durum = "Bekliyor"
                 };
 
@@ -282,9 +331,9 @@ namespace kuafordeneme.Controllers
                 return RedirectToAction("RandevuAl");
             }
 
-            // Model valid değilse islemleri ve calisanlari tekrar gönder
-            ViewBag.Islemler = _context.Islemler.ToList();
-            ViewBag.Calisanlar = _context.Calisanlar.ToList();
+            // Model doğrulanamazsa işlemler ve çalışanları tekrar yükle
+            ViewBag.Islemler = await _context.Islemler.ToListAsync();
+            ViewBag.Calisanlar = await _context.Calisanlar.ToListAsync();
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
         }
