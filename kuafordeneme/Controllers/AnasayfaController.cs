@@ -33,23 +33,38 @@ namespace kuafordeneme.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Mesajı veritabanına ekleme
-            var mesajGonder = new Mesaj
+            // Kullanıcıyı email adresiyle bulma
+            var kullanici = _context.Kullanicilar
+                                    .FirstOrDefault(k => k.Email == email);
+
+            // Eğer kullanıcı yoksa, sadece email ile mesajı kaydediyoruz
+            if (kullanici != null)
             {
-                MusteriAd = adSoyad,        // Kullanıcı adı
-                Email = email,              // Kullanıcı e-posta
-                Konu = konu,                // Mesaj konusu
-                Aciklama = mesaj,           // Mesaj içeriği
-                Tarih = DateTime.Now       // Mesaj gönderilme tarihi
-            };
+                // Mesajı veritabanına ekleme
+                var mesajGonder = new Mesaj
+                {
+                    MusteriAd = adSoyad,
+                    Email = email,
+                    Konu = konu,
+                    Aciklama = mesaj,
+                    Tarih = DateTime.UtcNow,   // UTC kullanımı
+                    KullaniciID = kullanici.KullaniciID  // Kullanıcıyı ilişkilendiriyoruz
+                };
 
-            // Veritabanına ekleme
-            _context.Mesajlar.Add(mesajGonder);
-            _context.SaveChanges();
+                // Veritabanına ekleme
+                _context.Mesaj.Add(mesajGonder);
+                _context.SaveChanges();
+                TempData["Success"] = "Mesajınız başarıyla gönderildi!";
+            }
+            else
+            {
+                TempData["Error"] = "Kullanıcı bulunamadı!";
+            }
 
-            TempData["Success"] = "Mesajınız başarıyla gönderildi!";
             return RedirectToAction("Index");
         }
+
+
 
 
         // Anasayfa
@@ -395,6 +410,9 @@ namespace kuafordeneme.Controllers
         {
             try
             {
+                var mesajlar = _context.Mesaj.ToList(); // Örnek: Mesajlar, veri tabanındaki mesajlar tablosu
+                ViewBag.Mesaj = mesajlar;
+
                 var islemler = await _context.Islemler.ToListAsync();
                 var calisanlar = await _context.Calisanlar.ToListAsync();
                 var kullanicilar = await _context.Kullanicilar.ToListAsync();

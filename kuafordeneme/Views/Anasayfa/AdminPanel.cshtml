@@ -23,9 +23,13 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="verimlilik-tab" data-bs-toggle="tab" data-bs-target="#verimlilik" type="button" role="tab">Verimlilik</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mesajlar-tab" data-bs-toggle="tab" data-bs-target="#mesajlar" type="button" role="tab">Mesajlar</button>
+        </li>
        
 
     </ul>
+
 
 
         <!-- Sekme İçerikleri -->
@@ -238,9 +242,49 @@
                 </div>
             </div>
 
-            <!-- RANDEVU -->
-            form
 
+        <!-- Mesajlar Sekmesi -->
+        <div class="tab-pane fade" id="mesajlar" role="tabpanel">
+            <h5>Mesajlar</h5>
+            <p>Gelen mesajları görüntüleyin.</p>
+
+            <div class="mt-4">
+                @if (ViewBag.Mesaj != null && ((List<Mesaj>)ViewBag.Mesaj).Count > 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Gönderen</th>
+                                <th>Konu</th>
+                                <th>Mesaj</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var mesaj in (List<Mesaj>)ViewBag.Mesaj)
+                            {
+                                <tr>
+                                    <td>@mesaj.MesajID</td>
+                                    <td>@mesaj.MusteriAd</td>
+                                    <td>@mesaj.Konu</td>
+                                    <td>@mesaj.Aciklama</td>
+                                    <td>@mesaj.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Mesaj bulunamadı.</p>
+                }
+            </div>
+        </div>
+
+
+       
+            
             <div class="tab-pane fade" id="randevu" role="tabpanel">
                 <h5>Randevu Onayı</h5>
                 <p>Bekleyen randevuları onayla veya iptal et.</p>
@@ -311,6 +355,8 @@
             </div>
         </div>
 
+        
+   
 
         <div class="tab-pane fade" id="verimlilik" role="tabpanel">
             <h5>Çalışan Verimliliği</h5>

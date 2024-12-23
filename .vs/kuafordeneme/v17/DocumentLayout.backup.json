@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\anasayfa\\randevularim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\randevularim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\anasayfa\\adminpanel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\adminpanel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\controllers\\anasayfacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\controllers\\anasayfacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\anasayfa\\adminpanel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\adminpanel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\models\\kullanicilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\models\\kullanicilar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\anasayfa\\iletisim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\iletisim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\anasayfa\\randevularim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\randevularim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\models\\islemler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,10 +63,6 @@
       "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\hizmetlerimiz.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\anasayfa\\iletisim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\anasayfa\\iletisim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -77,10 +85,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\models\\mesajlar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|solutionrelative:kuafordeneme\\models\\mesajlar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD997D50-3222-4799-A3D8-976D36AEADBA}|kuafordeneme\\kuafordeneme.csproj|c:\\users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -114,8 +118,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "kuafordeneme\\Models\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\ApplicationDbContext.cs",
+              "RelativeToolTip": "kuafordeneme\\Models\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T23:56:50.418Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -124,65 +141,53 @@
               "RelativeDocumentMoniker": "kuafordeneme\\Controllers\\AnasayfaController.cs",
               "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Controllers\\AnasayfaController.cs",
               "RelativeToolTip": "kuafordeneme\\Controllers\\AnasayfaController.cs",
-              "ViewState": "AgIAAGYBAAAAAAAAAADwv4UBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAI0BAAAAAAAAAAAiwJ0BAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-06T10:56:37.389Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Islemler.cs",
-              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Islemler.cs",
-              "RelativeDocumentMoniker": "kuafordeneme\\Models\\Islemler.cs",
-              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Islemler.cs",
-              "RelativeToolTip": "kuafordeneme\\Models\\Islemler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T16:12:15.905Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "AdminPanel.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml",
-              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml",
-              "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml",
-              "ViewState": "AgIAAF4BAAAAAAAAAAAUwIEBAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml*",
+              "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml*",
+              "ViewState": "AgIAAOQAAAAAAAAAAAAQwBsBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-11T22:13:05.892Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "Kullanicilar.cs",
+              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Kullanicilar.cs",
+              "RelativeDocumentMoniker": "kuafordeneme\\Models\\Kullanicilar.cs",
+              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Kullanicilar.cs",
+              "RelativeToolTip": "kuafordeneme\\Models\\Kullanicilar.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T23:49:03.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Randevularim.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Randevularim.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\Randevularim.cshtml",
               "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Randevularim.cshtml",
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\Randevularim.cshtml",
-              "ViewState": "AgIAABEAAAAAAAAAAAAUwCoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-22T14:18:12.848Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Program.cs",
-              "RelativeDocumentMoniker": "kuafordeneme\\Program.cs",
-              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Program.cs",
-              "RelativeToolTip": "kuafordeneme\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T15:57:55.638Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "RandevuViewModel.cs",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\RandevuViewModel.cs",
               "RelativeDocumentMoniker": "kuafordeneme\\Models\\RandevuViewModel.cs",
@@ -194,7 +199,44 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Iletisim.cshtml",
+              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
+              "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
+              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
+              "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
+              "ViewState": "AgIAABwAAAAAAAAAAAAUwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-06T17:24:03.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Program.cs",
+              "RelativeDocumentMoniker": "kuafordeneme\\Program.cs",
+              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Program.cs",
+              "RelativeToolTip": "kuafordeneme\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T15:57:55.638Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "Islemler.cs",
+              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Islemler.cs",
+              "RelativeDocumentMoniker": "kuafordeneme\\Models\\Islemler.cs",
+              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Islemler.cs",
+              "RelativeToolTip": "kuafordeneme\\Models\\Islemler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T16:12:15.905Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Randevu.cs",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Randevu.cs",
               "RelativeDocumentMoniker": "kuafordeneme\\Models\\Randevu.cs",
@@ -206,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Calisanlar.cs",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Calisanlar.cs",
               "RelativeDocumentMoniker": "kuafordeneme\\Models\\Calisanlar.cs",
@@ -218,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "YapayZeka.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\YapayZeka.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\YapayZeka.cshtml",
@@ -230,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Shared\\_Layout.cshtml",
@@ -242,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "Hizmetlerimiz.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Hizmetlerimiz.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\Hizmetlerimiz.cshtml",
@@ -254,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Index.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\Index.cshtml",
@@ -266,19 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Iletisim.cshtml",
-              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
-              "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
-              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
-              "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-06T17:24:03.296Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "20241221110123_UpdateCalisanlarModel.cs",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Migrations\\20241221110123_UpdateCalisanlarModel.cs",
               "RelativeDocumentMoniker": "kuafordeneme\\Migrations\\20241221110123_UpdateCalisanlarModel.cs",
@@ -290,7 +320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "20241221105008_UpdateCalisanlar.cs",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Migrations\\20241221105008_UpdateCalisanlar.cs",
               "RelativeDocumentMoniker": "kuafordeneme\\Migrations\\20241221105008_UpdateCalisanlar.cs",
@@ -302,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\_ViewStart.cshtml",
@@ -314,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "_ViewImports.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\_ViewImports.cshtml",
@@ -326,7 +356,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "GirisYap.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\GirisYap.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\GirisYap.cshtml",
@@ -338,7 +368,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\appsettings.json",
               "RelativeDocumentMoniker": "kuafordeneme\\appsettings.json",
@@ -350,7 +380,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "KayitOl.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Anasayfa\\KayitOl.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Anasayfa\\KayitOl.cshtml",
@@ -362,7 +392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "kuafordeneme\\Models\\ErrorViewModel.cs",
@@ -374,19 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Mesajlar.cs",
-              "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Mesajlar.cs",
-              "RelativeDocumentMoniker": "kuafordeneme\\Models\\Mesajlar.cs",
-              "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Models\\Mesajlar.cs",
-              "RelativeToolTip": "kuafordeneme\\Models\\Mesajlar.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T16:54:28.596Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "kuafordeneme\\Properties\\launchSettings.json",
@@ -398,7 +416,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "kuafordeneme\\wwwroot\\css\\site.css",
@@ -410,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "bootstrap.esm.js",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
               "RelativeDocumentMoniker": "kuafordeneme\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
@@ -422,7 +440,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "_ValidationScriptsPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
               "RelativeDocumentMoniker": "kuafordeneme\\Views\\Shared\\_ValidationScriptsPartial.cshtml",

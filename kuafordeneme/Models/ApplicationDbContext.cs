@@ -15,6 +15,7 @@ namespace kuafordeneme.Data
         public DbSet<Islemler> Islemler { get; set; }
         public DbSet<Calisanlar> Calisanlar { get; set; }
         public DbSet<Randevu> Randevular { get; set; }
-        public DbSet<Mesaj> Mesajlar { get; set; }
+        public DbSet<Mesaj> Mesaj { get; set; }
+
     }
 }
