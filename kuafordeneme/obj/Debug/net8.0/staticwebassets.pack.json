@@ -69,6 +69,18 @@
       "PackagePath": "staticwebassets\\images\\images.jpg"
     },
     {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\insan1.jpeg",
+      "PackagePath": "staticwebassets\\images\\insan1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\insan2.jpeg",
+      "PackagePath": "staticwebassets\\images\\insan2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\insan3.jpeg",
+      "PackagePath": "staticwebassets\\images\\insan3.jpeg"
+    },
+    {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\kas.jpg",
       "PackagePath": "staticwebassets\\images\\kas.jpg"
     },
