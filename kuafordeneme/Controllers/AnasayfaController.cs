@@ -194,14 +194,12 @@ namespace kuafordeneme.Controllers
         {
             return View();
         }
-
-        // POST: /Anasayfa/YapayZeka
         [HttpPost]
-        public async Task<IActionResult> YapayZeka(IFormFile photo)
+        public async Task<IActionResult> YapayZeka(IFormFile photo, string hairStyle)
         {
-            if (photo == null || photo.Length == 0)
+            if (photo == null || photo.Length == 0 || string.IsNullOrEmpty(hairStyle))
             {
-                TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin.";
+                TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin ve saç stilinizi yazın.";
                 return RedirectToAction("YapayZeka");
             }
 
@@ -222,32 +220,44 @@ namespace kuafordeneme.Controllers
                     await photo.CopyToAsync(stream);
                 }
 
-                // OpenAI API'ye istek göndermek için HTTP istemcisi
-                var client = new HttpClient();
-
+                // DeepAI API'ye istek göndermek için HTTP istemcisi
+                using var client = new HttpClient();
                 var form = new MultipartFormDataContent();
-                var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filePath));
-                form.Add(fileContent, "image", uniqueFileName);
 
-                // OpenAI API anahtarı
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_OPENAI_API_KEY");
+                // Fotoğrafı byte dizisine çevirme
+                var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                var byteArrayContent = new ByteArrayContent(fileBytes);
+                form.Add(byteArrayContent, "image", uniqueFileName);
 
-                // Görsel düzenleme isteği
-                var response = await client.PostAsync("https://api.openai.com/v1/images/generations", form);
+                // Saç stili açıklaması ekleme
+                form.Add(new StringContent(hairStyle), "prompt");
+
+                // DeepAI API anahtarı ekleme
+                client.DefaultRequestHeaders.Add("Api-Key", "7d1025af-aa5d-4406-b6cd-8bb44cb569e8");
+
+                // API isteği
+                var response = await client.PostAsync("https://api.deepai.org/api/text2img", form);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    TempData["Error"] = "Saç stili eklenirken bir hata oluştu.";
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    TempData["Error"] = "API Hatası: " + errorContent;
                     return RedirectToAction("YapayZeka");
                 }
 
-                // API'den gelen yanıtı al
+                // API'den gelen yanıtı işleme
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseBody);
-                string updatedImageUrl = jsonResponse.data[0].url;
 
-                // Yeni fotoğrafı kullanıcıya göster
+                // Yeni fotoğrafın URL'sini al
+                string updatedImageUrl = jsonResponse.output_url;
+
+                // Yeni fotoğrafı View'a gönder
                 ViewBag.ImageUrl = updatedImageUrl;
+                ViewBag.OriginalImage = "/uploads/" + uniqueFileName; // Orijinal yüklenen fotoğrafın URL'si
+
+                // Sunucuda depolanan dosyayı sil
+                System.IO.File.Delete(filePath);
 
                 return View();
             }
@@ -257,6 +267,16 @@ namespace kuafordeneme.Controllers
                 return RedirectToAction("YapayZeka");
             }
         }
+
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> GetCalisanlar(int islemID)
         {
@@ -293,6 +313,30 @@ namespace kuafordeneme.Controllers
         [HttpPost]
         public async Task<IActionResult> RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
         {
+            // Kullanıcı giriş kontrolü
+            var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
+
+            if (kullaniciID == null)
+            {
+                TempData["Error"] = "Randevu alabilmek için giriş yapmalısınız.";
+                return RedirectToAction("GirisYap");
+            }
+            // Kullanıcı bilgisi doğrulama
+            var oturumdakiKullanici = await _context.Kullanicilar
+                                                    .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
+
+            if (oturumdakiKullanici == null)
+            {
+                TempData["Error"] = "Geçersiz kullanıcı oturumu. Lütfen yeniden giriş yapın.";
+                return RedirectToAction("GirisYap");
+            }
+            // Sadece kendi adına randevu alabilme kontrolü
+            if (!string.Equals(oturumdakiKullanici.AdSoyad, adSoyad, StringComparison.OrdinalIgnoreCase))
+            {
+                TempData["Error"] = "Sadece kendi adınıza randevu alabilirsiniz.";
+                return RedirectToAction("RandevuAl");
+            }
+
             if (ModelState.IsValid)
             {
                 var kullanici = await _context.Kullanicilar

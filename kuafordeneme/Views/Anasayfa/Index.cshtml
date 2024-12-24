@@ -99,44 +99,96 @@
                 .footer .social-icons i:hover {
                     color: #007bff;
                 }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #eef2f7;
+            border-radius: 50%;
+            font-size: 24px;
+        }
+
     </style>
 </head>
 <body>
 
     <!-- Hero Section -->
-    <section class="bg-light text-center py-5">
-        <div class="container">
-            <h1 class="display-4 animate__animated animate__fadeIn">Hoş Geldiniz!</h1>
-            <p class="lead animate__animated animate__fadeIn animate__delay-1s">Kuaför hizmetlerimizden yararlanmak için hemen randevu alın.</p>
-            <a href="/Anasayfa/RandevuAl" class="btn btn-primary btn-lg animate__animated animate__bounceIn">Randevu Al <i class="bi bi-arrow-right-circle"></i></a>
+    <section class="hero-section text-center d-flex align-items-center justify-content-center" style="min-height: 80vh; background-color: #ffffff; position: relative;">
+        <div class="container text-dark position-relative">
+            <!-- Decorative Shapes -->
+            <div class="shape-1" style="position: absolute; top: -100px; left: -100px; width: 200px; height: 200px; background-color: #ff6f61; border-radius: 50%; z-index: 0;"></div>
+            <div class="shape-2" style="position: absolute; bottom: -100px; right: -100px; width: 150px; height: 150px; background-color: #00bcd4; border-radius: 50%; z-index: 0;"></div>
+
+            <!-- Content -->
+            <h1 class="display-4 fw-bold animate__animated animate__fadeInDown" style="font-family: 'Roboto', sans-serif; letter-spacing: 2px; z-index: 2; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);">Güzellik ve Tarz, Sizi Bekliyor!</h1>
+            <p class="lead mt-3 animate__animated animate__fadeInUp animate__delay-1s" style="font-size: 1.2rem; font-weight: 400; z-index: 2;">Profesyonel kuaförlük hizmetlerimizle özgüveninizi yeniden keşfedin.</p>
+
+            <a href="/Anasayfa/RandevuAl" class="btn btn-dark btn-lg px-5 py-3 mt-4 shadow animate__animated animate__zoomIn" style="z-index: 2; font-weight: bold; border-radius: 30px; background-color: green; border: none; transition: all 0.3s ease;">
+                Randevu Al <i class="bi bi-calendar-check"></i>
+            </a>
         </div>
     </section>
+
+    <!-- Additional Styles -->
+    <style>
+        /* Button hover effect */
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hero Section styling */
+        .hero-section {
+            position: relative;
+        }
+
+        /* Shape Styles */
+        .shape-1, .shape-2 {
+            animation: moveShapes 5s infinite alternate;
+        }
+
+    </style>
+
+
 
     <!-- Features Section -->
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">Neden Bizi Tercih Etmelisiniz?</h2>
-            <div class="row">
+            <h2 class="text-center mb-4 fw-bold text-primary">Neden Bizi Tercih Etmelisiniz?</h2>
+            <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Uzman Kadro</h5>
+                    <div class="card border-0 shadow-sm text-center h-100">
+                        <div class="card-body">
+                            <div class="icon mb-3 text-primary"><i class="bi bi-people fs-2"></i></div>
+                            <h5 class="card-title fw-bold">Uzman Kadro</h5>
                             <p class="card-text">Alanında uzman çalışanlarımızla hizmet veriyoruz.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Hızlı Randevu</h5>
+                    <div class="card border-0 shadow-sm text-center h-100">
+                        <div class="card-body">
+                            <div class="icon mb-3 text-primary"><i class="bi bi-clock fs-2"></i></div>
+                            <h5 class="card-title fw-bold">Hızlı Randevu</h5>
                             <p class="card-text">Kolay randevu sistemiyle hızlıca hizmet alabilirsiniz.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Uygun Fiyatlar</h5>
+                    <div class="card border-0 shadow-sm text-center h-100">
+                        <div class="card-body">
+                            <div class="icon mb-3 text-primary"><i class="bi bi-currency-dollar fs-2"></i></div>
+                            <h5 class="card-title fw-bold">Uygun Fiyatlar</h5>
                             <p class="card-text">Bütçenize uygun kaliteli hizmet.</p>
                         </div>
                     </div>
@@ -144,6 +196,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Popüler Hizmetler -->
     <section class="py-5 bg-light">
@@ -180,38 +233,293 @@
             </div>
         </div>
     </section>
+    <!-- Çalışanlar Bölümü -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Çalışanlarımız</h2>
+
+            <!-- Kaydırılabilir Kartlar Alanı -->
+            <div class="employee-carousel" id="employee-carousel">
+                <!-- Çalışan 1 -->
+                <div class="employee-card">
+                    <img src="~/images/insan9.jpeg" class="employee-img" alt="Çalışan 1">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Ayşe Verda</h5>
+                        <p class="employee-role">Saç Kesim Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 2 -->
+                <div class="employee-card">
+                    <img src="~/images/insan8.jpeg" class="employee-img" alt="Çalışan 2">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Ahmet Kaya</h5>
+                        <p class="employee-role">Saç Boyama Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 3 -->
+                <div class="employee-card">
+                    <img src="~/images/insan7.jpeg" class="employee-img" alt="Çalışan 3">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Elif Yılmaz</h5>
+                        <p class="employee-role">Manikür Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 4 -->
+                <div class="employee-card">
+                    <img src="~/images/insan6.jpeg" class="employee-img" alt="Çalışan 4">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Mehmet Demir</h5>
+                        <p class="employee-role">Cilt Bakımı Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 5 -->
+                <div class="employee-card">
+                    <img src="~/images/insan5.jpeg" class="employee-img" alt="Çalışan 5">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Zeynep Çelik</h5>
+                        <p class="employee-role">Saç Bakımı Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 6 -->
+                <div class="employee-card">
+                    <img src="~/images/insan4.jpeg" class="employee-img" alt="Çalışan 6">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Ali Veli</h5>
+                        <p class="employee-role">Saç Düzlemesi Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 7 -->
+                <div class="employee-card">
+                    <img src="~/images/insan3.jpeg" class="employee-img" alt="Çalışan 7">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Hasan Kızıl</h5>
+                        <p class="employee-role">Saç Bakımı Uzmanı</p>
+                    </div>
+                </div>
+                <!-- Çalışan 8 -->
+                <div class="employee-card">
+                    <img src="~/images/insan10.jpeg" class="employee-img" alt="Çalışan 8">
+                    <div class="employee-info">
+                        <h5 class="employee-name">Ayhan Yıldız</h5>
+                        <p class="employee-role">Cilt Bakımı Uzmanı</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS Styling -->
+    <style>
+        .employee-carousel {
+            display: flex;
+            overflow-x: scroll; /* Yatay kaydırma */
+            gap: 15px; /* Kartlar arasındaki boşluk */
+            padding: 15px;
+            scroll-snap-type: x mandatory; /* Kaydırmanın snappoint gibi görünmesini sağlarız */
+            scrollbar-width: none; /* Mozilla Firefox için kaldırma */
+            -ms-overflow-style: none; /* Internet Explorer için kaldırma */
+        }
+
+        .employee-card {
+            flex: 0 0 auto; /* Esnek kartlar, belirlenen genişlikte olacak */
+            width: 220px; /* Kart genişliği */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            text-align: center;
+            scroll-snap-align: start; /* Her kartı ayrı snappoint olarak ayarlar */
+        }
+
+            .employee-card:hover {
+                transform: scale(1.05); /* Kart üzerine geldiğinde biraz büyür */
+            }
+
+        .employee-img {
+            width: 100%;
+            height: 230px; /* Yüksekliği arttırdık, böylece fotoğraf daha dikine büyüyecek */
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+
+        .employee-info {
+            padding: 15px;
+        }
+
+        .employee-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .employee-role {
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+
+    <!-- JavaScript for Wheel Event -->
+    <script>
+        const employeeCarousel = document.getElementById('employee-carousel');
+
+        employeeCarousel.addEventListener('wheel', (event) => {
+            if (event.deltaY !== 0) {
+                // Eğer kaydırma hareketi yataysa
+                employeeCarousel.scrollLeft += event.deltaY;
+                event.preventDefault();
+            }
+        });
+    </script>
+
 
     <!-- Müşteri Yorumları -->
     <section class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center mb-4">Müşteri Yorumları</h2>
-            <div class="slick-carousel">
-                <div class="review-card">
-                    <img src="~/images/insan3.jpeg" class="reviewer-photo" alt="Müşteri 1">
-                    <p class="review-content">"Harika bir deneyimdi! Saç kesimim çok güzel oldu!"</p>
-                    <div class="star-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+            <div class="row justify-content-center">
+                <!-- Yorum 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="review-card">
+                        <img src="~/images/insan3.jpeg" class="reviewer-photo" alt="Müşteri 1">
+                        <p class="review-content">"Harika bir deneyimdi! Saç kesimim çok güzel oldu!"</p>
+                        <div class="star-rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="reviewer-name">- Ayşe Y.</p>
                     </div>
-                    <p>- Ayşe Y.</p>
                 </div>
-                <div class="review-card">
-                    <img src="~/images/insan2.jpeg" class="reviewer-photo" alt="Müşteri 2">
-                    <p class="review-content">"Çok memnun kaldım! Saç boyama konusunda gerçekten profesyoneller."</p>
-                    <div class="star-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+                <!-- Yorum 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="review-card">
+                        <img src="~/images/insan2.jpeg" class="reviewer-photo" alt="Müşteri 2">
+                        <p class="review-content">"Çok memnun kaldım! Saç boyama konusunda gerçekten profesyoneller."</p>
+                        <div class="star-rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="reviewer-name">- Ahmet K.</p>
                     </div>
-                    <p>- Ahmet K.</p>
+                </div>
+                <!-- Yorum 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="review-card">
+                        <img src="~/images/insan4.jpeg" class="reviewer-photo" alt="Müşteri 3">
+                        <p class="review-content">"Harika bir manikür hizmeti! Ellerim çok güzel görünüyor, teşekkürler!"</p>
+                        <div class="star-rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="reviewer-name">- Zeynep T.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- CSS Styling -->
+    <style>
+        /* Yeni Stil Önerileri */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Kart başlıkları ve içerik */
+        .card-body h5 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Hero Section başlığı ve buton renk uyumu */
+        .hero-section h1 {
+            color: #2b3d51;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Popüler Hizmetler kartları */
+        .service-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+            .service-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        /* Çalışan Kartları */
+        .employee-card {
+            transition: transform 0.3s ease-in-out;
+        }
+
+            .employee-card:hover {
+                transform: scale(1.05);
+            }
+
+            .employee-card img {
+                border-radius: 50%;
+            }
+
+        /* Yavaşça değişen şekil animasyonu */
+        .shape-1, .shape-2 {
+            animation: moveShapes 5s infinite alternate;
+        }
+
+        .review-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #f1f1f1;
+            height: 100%;
+        }
+
+            .review-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+        .reviewer-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .review-content {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .star-rating i {
+            color: #ffcc00;
+        }
+
+        .reviewer-name {
+            font-size: 1rem;
+            color: #555;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+    </style>
+
+
 
     <!-- Footer with Social Media and Location -->
     <footer class="footer">
@@ -245,4 +553,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
