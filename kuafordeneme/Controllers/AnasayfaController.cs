@@ -276,16 +276,15 @@ namespace kuafordeneme.Controllers
 
 
 
-
         [HttpGet]
         public async Task<IActionResult> GetCalisanlar(int islemID)
         {
             try
             {
-                // Uzmanlık ID'sine göre çalışanları getir
-                var calisanlar = await _context.Calisanlar
-                    .Where(c => c.UzmanlikID == islemID)
-                    .Select(c => new
+                // İşlem ID'sine göre, CalisanUzmanlik tablosundan çalışanları getirelim
+                var calisanlar = await _context.CalisanUzmanliklar
+                    .Where(cu => cu.IslemID == islemID)  // İlgili işlemi yapan çalışanlar
+                    .Join(_context.Calisanlar, cu => cu.CalisanID, c => c.CalisanID, (cu, c) => new
                     {
                         c.CalisanID,
                         c.CalisanAd,
@@ -301,6 +300,7 @@ namespace kuafordeneme.Controllers
                 return Json(new { message = $"Hata: {ex.Message}" });
             }
         }
+
 
         public async Task<IActionResult> RandevuAl()
         {

@@ -60,6 +60,21 @@ namespace kuafordeneme.Migrations
                     b.ToTable("Randevular");
                 });
 
+            modelBuilder.Entity("kuafordeneme.Models.CalisanUzmanlik", b =>
+                {
+                    b.Property<int>("CalisanID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IslemID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CalisanID", "IslemID");
+
+                    b.HasIndex("IslemID");
+
+                    b.ToTable("CalisanUzmanliklar");
+                });
+
             modelBuilder.Entity("kuafordeneme.Models.Calisanlar", b =>
                 {
                     b.Property<int>("CalisanID")
@@ -213,6 +228,25 @@ namespace kuafordeneme.Migrations
                     b.Navigation("Kullanici");
                 });
 
+            modelBuilder.Entity("kuafordeneme.Models.CalisanUzmanlik", b =>
+                {
+                    b.HasOne("kuafordeneme.Models.Calisanlar", "Calisan")
+                        .WithMany("Uzmanliklar")
+                        .HasForeignKey("CalisanID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("kuafordeneme.Models.Islemler", "Islem")
+                        .WithMany("Uzmanliklar")
+                        .HasForeignKey("IslemID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Calisan");
+
+                    b.Navigation("Islem");
+                });
+
             modelBuilder.Entity("kuafordeneme.Models.Calisanlar", b =>
                 {
                     b.HasOne("kuafordeneme.Models.Islemler", "Islem")
@@ -231,6 +265,16 @@ namespace kuafordeneme.Migrations
                         .IsRequired();
 
                     b.Navigation("Kullanici");
+                });
+
+            modelBuilder.Entity("kuafordeneme.Models.Calisanlar", b =>
+                {
+                    b.Navigation("Uzmanliklar");
+                });
+
+            modelBuilder.Entity("kuafordeneme.Models.Islemler", b =>
+                {
+                    b.Navigation("Uzmanliklar");
                 });
 #pragma warning restore 612, 618
         }

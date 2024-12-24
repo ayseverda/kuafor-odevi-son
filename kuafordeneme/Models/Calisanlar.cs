@@ -21,5 +21,6 @@ namespace kuafordeneme.Models
 
         // Navigation property
         public Islemler? Islem { get; set; } // Çalışanın uzmanlık yaptığı işlem (Nullable Navigation Property)
+        public ICollection<CalisanUzmanlik> Uzmanliklar { get; set; }
     }
 }
