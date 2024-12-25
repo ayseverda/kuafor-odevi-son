@@ -150,8 +150,7 @@
               "RelativeToolTip": "kuafordeneme\\wwwroot\\css\\bootstrap.css",
               "ViewState": "AgIAADAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-25T20:02:23.114Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-25T20:02:23.114Z"
             },
             {
               "$type": "Document",
@@ -163,8 +162,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\Index.cshtml",
               "ViewState": "AgIAAGAAAAAAAAAAAAAAAKsAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-06T10:57:04.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T10:57:04.08Z"
             },
             {
               "$type": "Document",
@@ -176,8 +174,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAF0AAAAAAAAAAAAAAGoAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-06T11:35:24.338Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T11:35:24.338Z"
             },
             {
               "$type": "Document",
@@ -189,8 +186,7 @@
               "RelativeToolTip": "kuafordeneme\\Models\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T23:56:50.418Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-22T23:56:50.418Z"
             },
             {
               "$type": "Document",
@@ -200,7 +196,7 @@
               "RelativeDocumentMoniker": "kuafordeneme\\Controllers\\AnasayfaController.cs",
               "ToolTip": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\Controllers\\AnasayfaController.cs*",
               "RelativeToolTip": "kuafordeneme\\Controllers\\AnasayfaController.cs*",
-              "ViewState": "AgIAAAEBAAAAAAAAAAAAAA8BAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAcBAAAAAAAAAAAAAA4BAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-06T10:56:37.389Z",
               "EditorCaption": ""
@@ -215,8 +211,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\YapayZeka.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-21T11:34:50.981Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T11:34:50.981Z"
             },
             {
               "$type": "Document",
@@ -228,8 +223,7 @@
               "RelativeToolTip": "kuafordeneme\\wwwroot\\css\\style.css",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAF0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-25T17:00:31.678Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-25T17:00:31.678Z"
             },
             {
               "$type": "Document",
@@ -241,8 +235,7 @@
               "RelativeToolTip": "kuafordeneme\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAwwBIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T15:57:55.638Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-22T15:57:55.638Z"
             },
             {
               "$type": "Document",
@@ -254,8 +247,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\AdminPanel.cshtml",
               "ViewState": "AgIAAAsBAAAAAAAAAAAIwCkBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-11T22:13:05.892Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-11T22:13:05.892Z"
             },
             {
               "$type": "Document",
@@ -267,8 +259,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\Iletisim.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-06T17:24:03.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T17:24:03.296Z"
             },
             {
               "$type": "Document",
@@ -280,8 +271,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\GirisYap.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-06T12:53:55.21Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-06T12:53:55.21Z"
             },
             {
               "$type": "Document",
@@ -293,8 +283,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\Randevularim.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-22T14:18:12.848Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-22T14:18:12.848Z"
             },
             {
               "$type": "Document",
@@ -306,8 +295,7 @@
               "RelativeToolTip": "kuafordeneme\\Views\\Anasayfa\\RandevuAl.cshtml",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-25T00:38:51.357Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-25T00:38:51.357Z"
             },
             {
               "$type": "Document",

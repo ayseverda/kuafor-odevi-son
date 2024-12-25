@@ -268,7 +268,7 @@ namespace kuafordeneme.Controllers
         private async Task<string> GetGPTModelResponse(string prompt)
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer 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"); // Buraya kendi API anahtarınızı ekleyin.
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer x"); // Buraya kendi API anahtarınızı ekleyin.
 
             var requestBody = new
             {
