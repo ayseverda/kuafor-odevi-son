@@ -8,11 +8,88 @@
     <title>@ViewData["Title"] - kuafordeneme</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/kuafordeneme.styles.css" asp-append-version="true" />
+    <style>
+        /* Soft pastel theme */
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .navbar {
+            background-color: rgba(255, 204, 213, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #ff6781;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+            .navbar-brand:hover {
+                color: #e05571;
+            }
+
+        .nav-link {
+            color: #343a40;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+            .nav-link:hover {
+                color: #ff6781;
+            }
+
+        .btn-primary {
+            background-color: #ff6781;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #e05571;
+            }
+
+        footer {
+            background-color: #ffccd5;
+            color: #343a40;
+            padding: 20px 0;
+        }
+
+            footer p {
+                margin: 0;
+            }
+
+            footer .social-icons a {
+                color: #343a40;
+                margin: 0 10px;
+                font-size: 1.5rem;
+                transition: color 0.3s ease;
+            }
+
+                footer .social-icons a:hover {
+                    color: #ff6781;
+                }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="/">Kuaför Yönetim</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,18 +113,14 @@
                             <a class="nav-link" href="/Anasayfa/Iletisim">İletişim</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Anasayfa/GirisYap">Giriş Yap</a>
+                            <a class="nav-link btn btn-primary text-white px-4" href="/Anasayfa/GirisYap">Giriş Yap</a>
                         </li>
-                    
-
-                    
-                        }
                     </ul>
                 </div>
             </div>
         </nav>
-
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -55,11 +128,17 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-3">
-        <div class="container text-center">
+    <footer class="text-center">
+        <div class="container">
             <p>&copy; 2024 Kuaför Yönetim Sistemi. Tüm Hakları Saklıdır.</p>
+            <div class="social-icons mt-2">
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

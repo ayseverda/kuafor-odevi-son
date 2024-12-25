@@ -101,6 +101,10 @@
       "PackagePath": "staticwebassets\\images\\agda6.jpg"
     },
     {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\back.jpeg",
+      "PackagePath": "staticwebassets\\images\\back.jpeg"
+    },
+    {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\bakim.jpg",
       "PackagePath": "staticwebassets\\images\\bakim.jpg"
     },
@@ -157,6 +161,10 @@
       "PackagePath": "staticwebassets\\images\\kas.jpg"
     },
     {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\kate.jpg",
+      "PackagePath": "staticwebassets\\images\\kate.jpg"
+    },
+    {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\kesim.jpg",
       "PackagePath": "staticwebassets\\images\\kesim.jpg"
     },
@@ -165,12 +173,24 @@
       "PackagePath": "staticwebassets\\images\\makeup.jpg"
     },
     {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\of.jpg",
+      "PackagePath": "staticwebassets\\images\\of.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\off.jpg",
+      "PackagePath": "staticwebassets\\images\\off.jpg"
+    },
+    {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\sacbakimi.jpg",
       "PackagePath": "staticwebassets\\images\\sacbakimi.jpg"
     },
     {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\tirnak.jpg",
       "PackagePath": "staticwebassets\\images\\tirnak.jpg"
+    },
+    {
+      "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\images\\wpwp.jpg",
+      "PackagePath": "staticwebassets\\images\\wpwp.jpg"
     },
     {
       "Id": "C:\\Users\\aysee\\source\\repos\\kuafordeneme\\kuafordeneme\\wwwroot\\js\\site.js",

@@ -2,27 +2,28 @@
     ViewData["Title"] = "Randevu Al";
 }
 
-
-
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Randevu Al</h2>
+    <div class="text-center">
+    </div>
 
-    <div class="row justify-content-center">
-       
-        <div class="col-md-6">
-            <div class="card">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0" style="background-color: #fce4ec;">
+                <div class="card-header text-white text-center" style="background-color: #d291bc;">
+                    <h5 class="mb-0">Randevu Bilgilerini Girin</h5>
+                </div>
                 <div class="card-body">
                     <form method="post" action="/Anasayfa/RandevuAl">
                         <!-- Ad Soyad -->
                         <div class="mb-3">
                             <label for="adSoyad" class="form-label">Ad Soyad:</label>
-                            <input type="text" class="form-control" id="adSoyad" name="adSoyad" required>
+                            <input type="text" class="form-control rounded-pill" id="adSoyad" name="adSoyad" required placeholder="Adınızı ve Soyadınızı girin" style="background-color: #f8bbd0;">
                         </div>
 
                         <!-- İşlem Seçimi -->
                         <div class="mb-3">
                             <label for="islem" class="form-label">İşlem Seçin:</label>
-                            <select class="form-select" id="islem" name="islemID" required onchange="getCalisanlar()">
+                            <select class="form-select rounded-pill" id="islem" name="islemID" required onchange="getCalisanlar()" style="background-color: #f8bbd0;">
                                 <option value="">İşlem Seçin</option>
                                 @foreach (var islem in (List<Islemler>)ViewBag.Islemler)
                                 {
@@ -34,7 +35,7 @@
                         <!-- Çalışan Seçimi -->
                         <div class="mb-3">
                             <label for="calisan" class="form-label">Çalışan Seçin:</label>
-                            <select class="form-select" id="calisan" name="calisanID" required>
+                            <select class="form-select rounded-pill" id="calisan" name="calisanID" required style="background-color: #f8bbd0;">
                                 <option value="">Çalışan Seçin</option>
                             </select>
                         </div>
@@ -42,38 +43,37 @@
                         <!-- Randevu Zamanı -->
                         <div class="mb-3">
                             <label for="randevuZamani" class="form-label">Randevu Zamanı:</label>
-                            <input type="datetime-local" class="form-control" id="randevuZamani" name="randevuZamani" required>
+                            <input type="datetime-local" class="form-control rounded-pill" id="randevuZamani" name="randevuZamani" required style="background-color: #f8bbd0;">
                         </div>
 
                         <!-- Submit Button -->
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary w-100">Randevu Al</button>
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn w-50 rounded-pill" style="background-color: #d291bc; color: white;">Randevu Al</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-   
-        
     </div>
 
+    <div class="text-center mt-4">
+        <a class="btn rounded-pill" href="/Anasayfa/Randevularim" style="background-color: #d291bc; color: white;">Randevularım</a>
+    </div>
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger mt-3 text-center">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success mt-3 text-center">
+            @TempData["Success"]
+        </div>
+    }
 </div>
-<a class="nav-link" href="/Anasayfa/Randevularim">Randevularım</a>
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
-
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Success"]
-    </div>
-}
 
 @section Scripts {
     <script>

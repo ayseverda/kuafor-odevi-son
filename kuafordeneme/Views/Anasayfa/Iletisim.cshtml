@@ -1,64 +1,152 @@
-﻿@{
-    ViewData["Title"] = "İletişim";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim</title>
+    <style>
+        body {
+            background-color: #ffeef5; /* Soft pembe arka plan */
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Bizimle İletişime Geçin</h2>
-    <p class="text-center text-muted mb-5">Herhangi bir sorunuz veya öneriniz varsa, aşağıdaki formu doldurarak bizimle iletişime geçebilirsiniz.</p>
+        .container {
+            margin-top: 50px;
+        }
 
-    <div class="row">
-        <!-- İletişim Formu -->
-        <div class="col-md-7">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Mesaj Gönder</h4>
-                    <form method="post" action="/AnaSayfa/MesajGonder">
-                        <div class="mb-3">
-                            <label for="adSoyad" class="form-label">Ad Soyad</label>
-                            <input type="text" class="form-control" id="adSoyad" name="adSoyad" placeholder="Adınızı ve Soyadınızı Girin" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-posta</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="E-posta Adresinizi Girin" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="konu" class="form-label">Konu</label>
-                            <input type="text" class="form-control" id="konu" name="konu" placeholder="Mesaj Konusunu Girin" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mesaj" class="form-label">Mesajınız</label>
-                            <textarea class="form-control" id="mesaj" name="mesaj" rows="5" placeholder="Mesajınızı Buraya Yazın" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Gönder</button>
-                    </form>
+        .card {
+            background-color: #fff5f8; /* Kart arka planı için açık pembe */
+            border: 1px solid #f8d0d8;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #f78da7; /* Gönder butonu için pembe */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #f56b91; /* Hover efekti */
+        }
+
+        .btn-outline-primary {
+            border-color: #f78da7;
+            color: #f78da7;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #f78da7;
+            color: #fff;
+        }
+
+        .btn-outline-info {
+            border-color: #92ccea;
+            color: #92ccea;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #92ccea;
+            color: #fff;
+        }
+
+        .btn-outline-danger {
+            border-color: #ff6f91;
+            color: #ff6f91;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #ff6f91;
+            color: #fff;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .text-muted {
+            color: #888 !important;
+        }
+
+        a {
+            color: #f56b91;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <p class="text-center text-muted mb-5">Herhangi bir sorunuz veya öneriniz varsa, aşağıdaki formu doldurarak bizimle iletişime geçebilirsiniz.</p>
+
+        <div class="row">
+            <!-- İletişim Formu -->
+            <div class="col-md-7">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Mesaj Gönder</h4>
+                        <form method="post" action="/AnaSayfa/MesajGonder">
+                            <div class="mb-3">
+                                <label for="adSoyad" class="form-label">Ad Soyad</label>
+                                <input type="text" class="form-control" id="adSoyad" name="adSoyad" placeholder="Adınızı ve Soyadınızı Girin" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-posta</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="E-posta Adresinizi Girin" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="konu" class="form-label">Konu</label>
+                                <input type="text" class="form-control" id="konu" name="konu" placeholder="Mesaj Konusunu Girin" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mesaj" class="form-label">Mesajınız</label>
+                                <textarea class="form-control" id="mesaj" name="mesaj" rows="5" placeholder="Mesajınızı Buraya Yazın" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Gönder</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- İletişim Bilgileri -->
-        <div class="col-md-5">
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h4 class="card-title">İletişim Bilgileri</h4>
-                    <p class="text-muted">Her zaman bize ulaşabilirsiniz:</p>
-                    <ul class="list-unstyled">
-                        <li><strong>Adres:</strong> Serdivan , Sakarya</li>
-                        <li><strong>Telefon:</strong> <a href="tel:+900123456789" class="text-decoration-none">+90 554 144 54 19</a></li>
-                        <li><strong>E-posta:</strong> <a href="mailto:ayseeverda@gmail.com" class="text-decoration-none">ayseeverda@gmail.com</a></li>
-                    </ul>
+            <!-- İletişim Bilgileri -->
+            <div class="col-md-5">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">İletişim Bilgileri</h4>
+                        <p class="text-muted">Her zaman bize ulaşabilirsiniz:</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Adres:</strong> Serdivan , Sakarya</li>
+                            <li><strong>Telefon:</strong> <a href="tel:+900123456789" class="text-decoration-none">+90 554 144 54 19</a></li>
+                            <li><strong>E-posta:</strong> <a href="mailto:ayseeverda@gmail.com" class="text-decoration-none">ayseeverda@gmail.com</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Sosyal Medya -->
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h4 class="card-title">Sosyal Medya</h4>
-                    <p class="text-muted">Bizi takip edin:</p>
-                    <a href="https://facebook.com" target="_blank" class="btn btn-outline-primary btn-sm me-2">Facebook</a>
-                    <a href="https://twitter.com" target="_blank" class="btn btn-outline-info btn-sm me-2">Twitter</a>
-                    <a href="https://instagram.com" target="_blank" class="btn btn-outline-danger btn-sm">Instagram</a>
+                <!-- Sosyal Medya -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h4 class="card-title">Sosyal Medya</h4>
+                        <p class="text-muted">Bizi takip edin:</p>
+                        <a href="https://facebook.com" target="_blank" class="btn btn-outline-primary btn-sm me-2">Facebook</a>
+                        <a href="https://twitter.com" target="_blank" class="btn btn-outline-info btn-sm me-2">Twitter</a>
+                        <a href="https://instagram.com" target="_blank" class="btn btn-outline-danger btn-sm">Instagram</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>

@@ -3,8 +3,79 @@
     var kullaniciID = Context.Session.GetInt32("KullaniciID"); // Kullanıcı ID'sini kontrol et
     var userRole = Context.Session.GetString("UserRole");      // Kullanıcı rolünü kontrol et
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sisteme Giriş Yap</title>
+    <style>
+        body {
+            background-color: #ffeef5; /* Soft pembe arka plan */
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
 
-<div class="container">
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            background-color: #fff5f8; /* Kart arka planı için daha açık bir pembe */
+            border: 1px solid #f8d0d8;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #f78da7; /* Buton pembe tonu */
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #f56b91; /* Hover etkisi */
+            }
+
+        .btn-danger {
+            background-color: #ff6f91;
+            border: none;
+        }
+
+            .btn-danger:hover {
+                background-color: #e65c7f;
+            }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .alert-success {
+            background-color: #fbeef3;
+            border: 1px solid #f8d0d8;
+        }
+
+        .alert-danger {
+            background-color: #ffe5e8;
+            border: 1px solid #ffccd1;
+        }
+
+        a {
+            color: #f56b91;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
     <h2 class="text-center mb-4">Sisteme Giriş Yap</h2>
 
     @if (kullaniciID == null) // Kullanıcı giriş yapmamışsa
@@ -63,3 +134,5 @@
         @TempData["Error"]
     </div>
 }
+</body>
+</html>

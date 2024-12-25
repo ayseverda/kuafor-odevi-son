@@ -249,38 +249,55 @@
             <p>Gelen mesajları görüntüleyin.</p>
 
             <div class="mt-4">
-                @if (ViewBag.Mesaj != null && ((List<Mesaj>)ViewBag.Mesaj).Count > 0)
-                {
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Gönderen</th>
-                                <th>Konu</th>
-                                <th>Mesaj</th>
-                                <th>Tarih</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var mesaj in (List<Mesaj>)ViewBag.Mesaj)
-                            {
-                                <tr>
-                                    <td>@mesaj.MesajID</td>
-                                    <td>@mesaj.MusteriAd</td>
-                                    <td>@mesaj.Konu</td>
-                                    <td>@mesaj.Aciklama</td>
-                                    <td>@mesaj.Tarih.ToString("dd.MM.yyyy HH:mm")</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
-                else
-                {
-                    <p>Mesaj bulunamadı.</p>
-                }
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Gönderen</th>
+                            <th>Konu</th>
+                            <th>Mesaj</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mesajlar-table-body">
+                        <!-- Mesajlar buraya eklenecek -->
+                    </tbody>
+                </table>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                // API'den mesajları çek
+                $.ajax({
+                    url: 'https://localhost:7223/api/mesaj', // Doğru API URL'si
+                    method: 'GET',
+                    success: function (data) {
+                        var tableBody = $('#mesajlar-table-body');
+                        tableBody.empty(); // Tablodaki mevcut verileri temizle
+
+                        // Verileri tabloya ekle
+                        data.forEach(function (mesaj) {
+                            var row = `<tr>
+                                        <td>${mesaj.mesajID}</td>
+                                        <td>${mesaj.musteriAd}</td>
+                                        <td>${mesaj.konu}</td>
+                                        <td>${mesaj.aciklama}</td>
+                                        <td>${new Date(mesaj.tarih).toLocaleString()}</td>
+                                    </tr>`;
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Mesajlar yüklenirken bir hata oluştu:', error);
+                    }
+                });
+            });
+
+        </script>
+
 
 
        

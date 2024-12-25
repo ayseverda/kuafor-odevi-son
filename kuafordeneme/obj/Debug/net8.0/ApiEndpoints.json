@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "ContainingType": "kuafordeneme.Controllers.MesajlarController",
+    "Method": "GetMesajlar",
+    "RelativePath": "api/mesaj",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
