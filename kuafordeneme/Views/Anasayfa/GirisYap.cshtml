@@ -3,6 +3,10 @@
     var kullaniciID = Context.Session.GetInt32("KullaniciID"); // Kullanıcı ID'sini kontrol et
     var userRole = Context.Session.GetString("UserRole");      // Kullanıcı rolünü kontrol et
 }
+@{
+    Layout = "_Layout";
+      <!-- Layout dosyasını dahil et -->
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>

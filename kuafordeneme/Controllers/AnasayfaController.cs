@@ -8,6 +8,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 
 
@@ -72,6 +74,13 @@ namespace kuafordeneme.Controllers
         {
             return View();
         }
+
+        public IActionResult Index123()
+        {
+            return View();
+        }
+
+
 
 
         // Hizmetlerimiz
@@ -182,82 +191,46 @@ namespace kuafordeneme.Controllers
             return View();  // Hata varsa tekrar kayıt ol sayfasına yönlendirme
         }
 
+
         public IActionResult CikisYap()
         {
             HttpContext.Session.Clear(); // Tüm session bilgilerini temizle
             return RedirectToAction("GirisYap", "Anasayfa");
         }
-        private readonly string apiKey = "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"; // OpenAI API Anahtarınızı buraya ekleyin
 
         // GET: /Anasayfa/YapayZeka
+        // GET: /YapayZeka
         public IActionResult YapayZeka()
         {
             return View();
         }
+
+        // POST: /YapayZeka
         [HttpPost]
-        public async Task<IActionResult> YapayZeka(IFormFile photo, string hairStyle)
+        public async Task<IActionResult> YapayZeka(IFormFile photo)
         {
-            if (photo == null || photo.Length == 0 || string.IsNullOrEmpty(hairStyle))
+            if (photo == null || photo.Length == 0)
             {
-                TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin ve saç stilinizi yazın.";
+                TempData["Error"] = "Lütfen geçerli bir fotoğraf yükleyin.";
                 return RedirectToAction("YapayZeka");
             }
 
             try
             {
-                // Fotoğrafı kaydet
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
+                // Fotoğrafı Base64 formatına çevirme
+                var base64String = await ConvertToBase64(photo);
 
-                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                // Model için açıklama oluşturma
+                string prompt = $"Bu fotoğraftaki kişi için saç stili önerisi ver. Fotoğraf (Base64 kodu): {base64String}";
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await photo.CopyToAsync(stream);
-                }
+                // API'ye istek gönder
+                var response = await GetGPTModelResponse(prompt);
 
-                // DeepAI API'ye istek göndermek için HTTP istemcisi
-                using var client = new HttpClient();
-                var form = new MultipartFormDataContent();
+                // Modelden gelen cevabı al
+                string suggestion = response?.Trim() ?? "Saç stili önerisi alınamadı.";
 
-                // Fotoğrafı byte dizisine çevirme
-                var fileBytes = System.IO.File.ReadAllBytes(filePath);
-                var byteArrayContent = new ByteArrayContent(fileBytes);
-                form.Add(byteArrayContent, "image", uniqueFileName);
-
-                // Saç stili açıklaması ekleme
-                form.Add(new StringContent(hairStyle), "prompt");
-
-                // DeepAI API anahtarı ekleme
-                client.DefaultRequestHeaders.Add("Api-Key", "7d1025af-aa5d-4406-b6cd-8bb44cb569e8");
-
-                // API isteği
-                var response = await client.PostAsync("https://api.deepai.org/api/text2img", form);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    TempData["Error"] = "API Hatası: " + errorContent;
-                    return RedirectToAction("YapayZeka");
-                }
-
-                // API'den gelen yanıtı işleme
-                var responseBody = await response.Content.ReadAsStringAsync();
-                var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseBody);
-
-                // Yeni fotoğrafın URL'sini al
-                string updatedImageUrl = jsonResponse.output_url;
-
-                // Yeni fotoğrafı View'a gönder
-                ViewBag.ImageUrl = updatedImageUrl;
-                ViewBag.OriginalImage = "/uploads/" + uniqueFileName; // Orijinal yüklenen fotoğrafın URL'si
-
-                // Sunucuda depolanan dosyayı sil
-                System.IO.File.Delete(filePath);
+                // Sonucu ViewBag'e atama
+                ViewBag.Suggestion = suggestion;
 
                 return View();
             }
@@ -268,12 +241,61 @@ namespace kuafordeneme.Controllers
             }
         }
 
+        // Fotoğrafı küçük boyuta indirip Base64 formatına çevirme
+        private async Task<string> ConvertToBase64(IFormFile photo)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await photo.CopyToAsync(memoryStream);
 
+                // Küçük bir boyuta indirgeme işlemi
+                using (var image = Image.FromStream(new MemoryStream(memoryStream.ToArray())))
+                {
+                    var newWidth = 300; // Genişliği 300px olarak ayarlıyoruz
+                    var newHeight = (int)(image.Height * (newWidth / (double)image.Width)); // Yüksekliği oranla ayarlıyoruz
+                    var resizedImage = new Bitmap(image, newWidth, newHeight);
 
+                    using (var resizedStream = new MemoryStream())
+                    {
+                        resizedImage.Save(resizedStream, ImageFormat.Jpeg); // JPEG formatında kaydediyoruz
+                        return Convert.ToBase64String(resizedStream.ToArray());
+                    }
+                }
+            }
+        }
 
+        // OpenAI API'ye istek gönderme
+        private async Task<string> GetGPTModelResponse(string prompt)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer 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"); // Buraya kendi API anahtarınızı ekleyin.
 
+            var requestBody = new
+            {
+                model = "gpt-3.5-turbo", // veya "gpt-4"
+                messages = new[]
+                {
+                new { role = "system", content = "You are a helpful assistant." },
+                new { role = "user", content = prompt }
+            },
+                max_tokens = 150
+            };
 
+            var response = await client.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", requestBody);
 
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception($"API isteği başarısız oldu: {errorMessage}");
+            }
+
+            // JSON yanıtını okuma
+            var responseJson = await response.Content.ReadAsStringAsync();
+            var result = Newtonsoft.Json.Linq.JObject.Parse(responseJson);
+            var suggestion = result["choices"]?[0]?["message"]?["content"]?.ToString();
+
+            return suggestion;
+        }
 
 
         [HttpGet]

@@ -1,238 +1,91 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    Layout = "_Layout";
+    <!-- Layout dosyasını dahil et -->
+}
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuaför Yönetim Sistemi</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Slick Carousel for Reviews -->
-    <link href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" rel="stylesheet">
-    <!-- Animate.css for animations -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Bootstrap Design Template - Pink</title>
+
+    <!-- BOOTSTRAP CORE CSS -->
+    <!-- <link href="/css/bootstrap.css" rel="stylesheet" /> -->
+    <!-- IONICON STYLE SHEET FOR BEAUTIFUL ICONS -->
+    <link href="/css/ionicons.css" rel="stylesheet" />
+
+    <!-- STYLE FOR OPENING IMAGE IN POPUP USING FANCYBOX-->
+    <link href="/js/source/jquery.fancybox.css" rel="stylesheet" />
+
+    <!-- CUSTOM CSS -->
+    <link href="/css/style.css" rel="stylesheet" />
+
+    <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <style>
-        .service-card {
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
-
-            .service-card:hover {
-                transform: scale(1.05);
-            }
-
-            .service-card img {
-                width: 100%;
-                height: 250px;
-                object-fit: cover;
-            }
-
-            .service-card .card-body {
-                background-color: #ffffff;
-                padding: 20px;
-                text-align: center;
-            }
-
-                .service-card .card-body h5 {
-                    font-size: 1.25rem;
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                }
-
-                .service-card .card-body p {
-                    font-size: 1rem;
-                    color: #555;
-                }
-
-        /* Custom styles for the customer review section */
-        .review-card {
-            border: none;
-            padding: 30px;
-            background-color: #f8f9fa;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            transition: transform 0.3s ease-in-out;
-        }
-
-            .review-card:hover {
-                transform: scale(1.05);
-            }
-
-            .review-card .reviewer-photo {
-                width: 70px;
-                height: 70px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-bottom: 20px;
-            }
-
-            .review-card .review-content {
-                text-align: center;
-                font-size: 1.1rem;
-                font-style: italic;
-            }
-
-        .star-rating i {
-            color: #ffcc00;
-        }
-
-        /* Footer styles */
-        .footer {
-            background-color: #f8f9fa;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-
-            .footer .social-icons i {
-                font-size: 24px;
-                margin-right: 15px;
-                color: #333;
-                transition: color 0.3s;
-            }
-
-                .footer .social-icons i:hover {
-                    color: #007bff;
-                }
-
-        .hero-section {
-            position: relative;
-            overflow: hidden;
-        }
 
 
-
-        .icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: #eef2f7;
-            border-radius: 50%;
-            font-size: 24px;
-        }
 
     </style>
 </head>
-<body>
-
-    <!-- Hero Section -->
-    <section class="hero-section text-center d-flex align-items-center justify-content-center" style="min-height: 80vh; background-color: #ffffff; position: relative;">
-        <div class="container text-dark position-relative">
-            <!-- Decorative Shapes -->
-            <div class="shape-1" style="position: absolute; top: -100px; left: -100px; width: 200px; height: 200px; background-color: #ff6f61; border-radius: 50%; z-index: 0;"></div>
-            <div class="shape-2" style="position: absolute; bottom: -100px; right: -100px; width: 150px; height: 150px; background-color: #00bcd4; border-radius: 50%; z-index: 0;"></div>
-
-            <!-- Content -->
-            <h1 class="display-4 fw-bold animate__animated animate__fadeInDown" style="font-family: 'Roboto', sans-serif; letter-spacing: 2px; z-index: 2; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);">Güzellik ve Tarz, Sizi Bekliyor!</h1>
-            <p class="lead mt-3 animate__animated animate__fadeInUp animate__delay-1s" style="font-size: 1.2rem; font-weight: 400; z-index: 2;">Profesyonel kuaförlük hizmetlerimizle özgüveninizi yeniden keşfedin.</p>
-
-            <a href="/Anasayfa/RandevuAl" class="btn btn-dark btn-lg px-5 py-3 mt-4 shadow animate__animated animate__zoomIn" style="z-index: 2; font-weight: bold; border-radius: 30px; background-color: green; border: none; transition: all 0.3s ease;">
-                Randevu Al <i class="bi bi-calendar-check"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- Additional Styles -->
-    <style>
-        /* Button hover effect */
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Hero Section styling */
-        .hero-section {
-            position: relative;
-        }
-
-        /* Shape Styles */
-        .shape-1, .shape-2 {
-            animation: moveShapes 5s infinite alternate;
-        }
-
-    </style>
-
-
-
-    <!-- Features Section -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4 fw-bold text-primary">Neden Bizi Tercih Etmelisiniz?</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center h-100">
-                        <div class="card-body">
-                            <div class="icon mb-3 text-primary"><i class="bi bi-people fs-2"></i></div>
-                            <h5 class="card-title fw-bold">Uzman Kadro</h5>
-                            <p class="card-text">Alanında uzman çalışanlarımızla hizmet veriyoruz.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center h-100">
-                        <div class="card-body">
-                            <div class="icon mb-3 text-primary"><i class="bi bi-clock fs-2"></i></div>
-                            <h5 class="card-title fw-bold">Hızlı Randevu</h5>
-                            <p class="card-text">Kolay randevu sistemiyle hızlıca hizmet alabilirsiniz.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm text-center h-100">
-                        <div class="card-body">
-                            <div class="icon mb-3 text-primary"><i class="bi bi-currency-dollar fs-2"></i></div>
-                            <h5 class="card-title fw-bold">Uygun Fiyatlar</h5>
-                            <p class="card-text">Bütçenize uygun kaliteli hizmet.</p>
-                        </div>
-                    </div>
+<body data-spy="scroll">
+    <div id="header">
+        <div class="overlay">
+            <div class="container d-flex justify-content-center align-items-center vh-100">
+                <div class="text-center">
+                    <h1 data-scroll-reveal="enter from the bottom after 0.2s">Güzellik ve Tarz, Sizi Bekliyor!</h1>
+                    <h4 data-scroll-reveal="enter from the bottom after 0.4s">Profesyonel kuaförlük hizmetlerimizle özgüveninizi yeniden keşfedin.</h4>
+                    <a data-scroll-reveal="enter from the bottom after 0.6s" href="/Anasayfa/RandevuAl" class="btn btn-danger set-bk-clr">Randevu Al</a>
                 </div>
             </div>
+
         </div>
-    </section>
-
-
-    <!-- Popüler Hizmetler -->
-    <section class="py-5 bg-light">
+    </div>
+    <section id="services">
         <div class="container">
-            <h2 class="text-center mb-4">Popüler Hizmetlerimiz</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <img src="~/images/kesim.jpg" alt="Saç Kesimi">
-                        <div class="card-body">
-                            <h5>Saç Kesimi</h5>
-                            <p>Profesyonel saç kesimi hizmeti ile tarzınızı belirleyin.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <img src="~/images/boya.jpg" alt="Saç Boyama">
-                        <div class="card-body">
-                            <h5>Saç Boyama</h5>
-                            <p>Farklı renk seçenekleri ile saç boyama hizmeti.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <img src="~/images/tirnak.jpg" alt="Manikür">
-                        <div class="card-body">
-                            <h5>Manikür</h5>
-                            <p>Özenli manikür ve bakım hizmeti ile ellerinize özel ilgi.</p>
-                        </div>
-                    </div>
+            <div class="row text-center">
+                <div class="col-md-6 col-md-offset-3 pad-bottom" data-scroll-reveal="enter from the bottom after 0.2s">
+                    <h2><strong>En Çok Tercih Edilen İşlemlerimiz</strong></h2>
                 </div>
             </div>
+            <div class="row text-center pad-bottom" data-scroll-reveal="enter from the bottom after 0.4s">
+                <div class="col-md-3">
+                    <i class="ion-scissors"></i>
+                    <h4><strong>Saç Kesimi</strong></h4>
+                    Yüzünüze en uygun kesimi bulun.
+                </div>
+                <div class="col-md-3">
+                    <i class="ion-ios-color-wand-outline"></i>
+                    <h4><strong>Saç Bakımı</strong></h4>
+                    Size sihir gibi gelen bir saç bakımı.
+                </div>
+
+                <div class="col-md-3">
+                    <i class="ion-bowtie"></i>
+                    <h4><strong>Makyaj</strong></h4>
+                    Size özel makyaj tasarımları.
+                </div>
+                <div class="col-md-3">
+                    <i class="ion-star"></i>
+                    <h4><strong>Protez Tırnak</strong></h4>
+                    Her türlü tasarımla tırnaklarınız dikkat çekecek.
+                </div>
+            </div>
+
+
         </div>
     </section>
+
     <!-- Çalışanlar Bölümü -->
     <section class="py-5">
         <div class="container">
@@ -244,7 +97,7 @@
                 <div class="employee-card">
                     <img src="~/images/insan9.jpeg" class="employee-img" alt="Çalışan 1">
                     <div class="employee-info">
-                        <h5 class="employee-name">Ayşe Verda</h5>
+                        <h5 class="employee-name">Tuğçe Duygu</h5>
                         <p class="employee-role">Saç Kesim Uzmanı</p>
                     </div>
                 </div>
@@ -252,7 +105,7 @@
                 <div class="employee-card">
                     <img src="~/images/insan8.jpeg" class="employee-img" alt="Çalışan 2">
                     <div class="employee-info">
-                        <h5 class="employee-name">Ahmet Kaya</h5>
+                        <h5 class="employee-name">Ezgi Mulan</h5>
                         <p class="employee-role">Saç Boyama Uzmanı</p>
                     </div>
                 </div>
@@ -260,7 +113,7 @@
                 <div class="employee-card">
                     <img src="~/images/insan7.jpeg" class="employee-img" alt="Çalışan 3">
                     <div class="employee-info">
-                        <h5 class="employee-name">Elif Yılmaz</h5>
+                        <h5 class="employee-name">Mete Koran</h5>
                         <p class="employee-role">Manikür Uzmanı</p>
                     </div>
                 </div>
@@ -268,7 +121,7 @@
                 <div class="employee-card">
                     <img src="~/images/insan6.jpeg" class="employee-img" alt="Çalışan 4">
                     <div class="employee-info">
-                        <h5 class="employee-name">Mehmet Demir</h5>
+                        <h5 class="employee-name">Beyza Kara</h5>
                         <p class="employee-role">Cilt Bakımı Uzmanı</p>
                     </div>
                 </div>
@@ -284,15 +137,15 @@
                 <div class="employee-card">
                     <img src="~/images/insan4.jpeg" class="employee-img" alt="Çalışan 6">
                     <div class="employee-info">
-                        <h5 class="employee-name">Ali Veli</h5>
-                        <p class="employee-role">Saç Düzlemesi Uzmanı</p>
+                        <h5 class="employee-name">Yaren Beyaz</h5>
+                        <p class="employee-role">Saç Modelleri Uzmanı</p>
                     </div>
                 </div>
                 <!-- Çalışan 7 -->
                 <div class="employee-card">
                     <img src="~/images/insan3.jpeg" class="employee-img" alt="Çalışan 7">
                     <div class="employee-info">
-                        <h5 class="employee-name">Hasan Kızıl</h5>
+                        <h5 class="employee-name">İlke Duran</h5>
                         <p class="employee-role">Saç Bakımı Uzmanı</p>
                     </div>
                 </div>
@@ -300,7 +153,7 @@
                 <div class="employee-card">
                     <img src="~/images/insan10.jpeg" class="employee-img" alt="Çalışan 8">
                     <div class="employee-info">
-                        <h5 class="employee-name">Ayhan Yıldız</h5>
+                        <h5 class="employee-name">İbrahim Üzüm</h5>
                         <p class="employee-role">Cilt Bakımı Uzmanı</p>
                     </div>
                 </div>
@@ -520,21 +373,6 @@
     </style>
 
 
-
-    <!-- Footer with Social Media and Location -->
-    <footer class="footer">
-        <div class="container text-center">
-            <p class="mb-3">Bizi Takip Edin:</p>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/" target="_blank"><i class="bi bi-facebook"></i></a>
-                <a href="https://x.com/" target="_blank"><i class="bi bi-twitter"></i></a>
-                <a href="https://www.instagram.com/" target="_blank"><i class="bi bi-instagram"></i></a>
-            </div>
-            <p class="mt-3">Adres: Adres: Serdivan , Sakarya</p>
-            <p>Email: ayse@kuafor.com | Tel: +90 123 456 78 90</p>
-        </div>
-    </footer>
-
     <!-- Bootstrap JS & Slick Carousel JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -552,5 +390,13 @@
             });
         });
     </script>
+
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/js/jquery-1.11.1.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.fancybox.pack.js"></script>
+    <script src="/js/jquery.isotope.min.js"></script>
+    <script src="/js/custom.js"></script>
 </body>
-</html> 
+</html>

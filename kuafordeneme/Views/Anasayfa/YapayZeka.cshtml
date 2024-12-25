@@ -1,10 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Yapay Zeka Görsel Oluşturma";
+    ViewData["Title"] = "Yapay Zeka";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h1>Saç Stili Önerisi</h1>
 
-<!-- Hata mesajı gösterimi -->
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">
@@ -12,35 +11,16 @@
     </div>
 }
 
-<!-- Fotoğraf ve saç stili yazma formu -->
-<form method="post" enctype="multipart/form-data">
+<form asp-action="YapayZeka" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="photo">Fotoğrafınızı Yükleyin:</label>
-        <input type="file" id="photo" name="photo" class="form-control" accept="image/*" />
+        <label for="photo">Fotoğraf Yükle</label>
+        <input type="file" name="photo" id="photo" class="form-control" required />
     </div>
-
-    <div class="form-group">
-        <label for="hairStyle">Saç Stilini Yazın:</label>
-        <input type="text" id="hairStyle" name="hairStyle" class="form-control" placeholder="Örneğin: Kısa kıvırcık saç" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Görsel Oluştur</button>
+    <button type="submit" class="btn btn-primary">Saç Stili Önerisi Al</button>
 </form>
 
-<!-- Orijinal fotoğrafı göster -->
-@if (ViewBag.OriginalImage != null)
+@if (ViewBag.Suggestion != null)
 {
-    <div class="mt-4">
-        <h3>Yüklediğiniz Fotoğraf</h3>
-        <img src="@ViewBag.OriginalImage" alt="Original Image" class="img-fluid" />
-    </div>
-}
-
-<!-- Eğer yeni bir görsel varsa, o görseli göster -->
-@if (ViewBag.ImageUrl != null)
-{
-    <div class="mt-4">
-        <h3>Oluşturulan Görsel</h3>
-        <img src="@ViewBag.ImageUrl" alt="Generated Image" class="img-fluid" />
-    </div>
+    <h3>Önerilen Saç Stili:</h3>
+    <p>@ViewBag.Suggestion</p>
 }
