@@ -104,71 +104,90 @@
                 </div>
             </div>
 
-            <!-- Çalışan Yönetimi -->
-            <div class="tab-pane fade" id="calisan" role="tabpanel">
-                <h5>Çalışan Yönetimi</h5>
-                <form method="post" action="/Anasayfa/CalisanEkleGuncelle">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="calisanID" class="form-label">Çalışan ID</label>
-                            <input type="number" class="form-control" id="calisanID" name="calisanID" placeholder="ID (varsa)">
-                        </div>
-                        <div class="col">
-                            <label for="calisanAd" class="form-label">Ad Soyad</label>
-                            <input type="text" class="form-control" id="calisanAd" name="calisanAd" placeholder="Çalışan adı">
-                        </div>
+        <div class="tab-pane fade" id="calisan" role="tabpanel">
+            <h5>Çalışan Yönetimi</h5>
+            <form method="post" action="/Anasayfa/CalisanEkleGuncelle">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="calisanID" class="form-label">Çalışan ID</label>
+                        <input type="number" class="form-control" id="calisanID" name="calisanID" placeholder="ID (varsa)">
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="uzmanlikID" class="form-label">Uzmanlık ID</label>
-                            <input type="number" class="form-control" id="uzmanlikID" name="uzmanlikID" placeholder="Uzmanlık ID">
-                        </div>
-                        <div class="col">
-                            <label for="musaitlik" class="form-label">Müsaitlik</label>
-                            <select class="form-select" id="musaitlik" name="musaitlik">
-                                <option value="true">Müsait</option>
-                                <option value="false">Müsait Değil</option>
-                            </select>
-                        </div>
+                    <div class="col">
+                        <label for="calisanAd" class="form-label">Ad Soyad</label>
+                        <input type="text" class="form-control" id="calisanAd" name="calisanAd" placeholder="Çalışan adı">
                     </div>
-                    <div class="d-flex gap-2">
-                        <button type="submit" name="islem" value="ekle" class="btn btn-success">Ekle</button>
-                        <button type="submit" name="islem" value="guncelle" class="btn btn-warning">Güncelle</button>
-                        <button type="submit" name="islem" value="sil" class="btn btn-danger">Sil</button>
-                    </div>
-                </form>
-
-                <div class="mt-4">
-                    @if (ViewBag.Calisanlar != null)
-                    {
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ad Soyad</th>
-                                    <th>Uzmanlık</th>
-                                    <th>Müsaitlik</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var calisan in (List<Calisanlar>)ViewBag.Calisanlar)
-                                {
-                                    <tr>
-                                        <td>@calisan.CalisanID</td>
-                                        <td>@calisan.CalisanAd</td>
-                                        <td>@calisan.UzmanlikID</td>
-                                        <td>@(calisan.Musaitlik ? "Müsait" : "Müsait Değil")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-                    else
-                    {
-                        <p>Çalışan bulunamadı.</p>
-                    }
                 </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="uzmanlikID" class="form-label">Uzmanlık ID</label>
+                        <select class="form-select" id="uzmanlikID" name="uzmanlikID">
+                            @foreach (var uzmanlik in ViewBag.Uzmanliklar)
+                            {
+                                <option value="@uzmanlik.IslemID">@uzmanlik.IslemAd</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="musaitlik" class="form-label">Müsaitlik</label>
+                        <select class="form-select" id="musaitlik" name="musaitlik">
+                            <option value="true">Müsait</option>
+                            <option value="false">Müsait Değil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="gunlukKazanc" class="form-label">Günlük Kazanç</label>
+                        <input type="number" class="form-control" id="gunlukKazanc" name="gunlukKazanc" placeholder="Günlük kazanç" step="0.01">
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" name="islem" value="ekle" class="btn btn-success">Ekle</button>
+                    <button type="submit" name="islem" value="guncelle" class="btn btn-warning">Güncelle</button>
+                    <button type="submit" name="islem" value="sil" class="btn btn-danger">Sil</button>
+                </div>
+            </form>
+
+            <div class="mt-4">
+                @if (ViewBag.Calisanlar != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ad Soyad</th>
+                              
+                                <th>İşlemler</th>
+                                <th>Günlük Kazanç</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var calisan in (List<Calisanlar>)ViewBag.Calisanlar)
+                            {
+                                <tr>
+                                    <td>@calisan.CalisanID</td>
+                                    <td>@calisan.CalisanAd</td>
+                                    <td>
+                                        @foreach (var calisanIslem in calisan.Uzmanliklar)
+                                        {
+                                            <span>@calisanIslem.Islem.IslemAd</span>
+
+                                            <br />
+                                        }
+                                    </td>
+                                    <td>@calisan.GunlukKazanc</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Çalışan bulunamadı.</p>
+                }
             </div>
+        </div>
+
 
             <!-- Kullanıcı Yönetimi -->
             <div class="tab-pane fade" id="kullanici" role="tabpanel">

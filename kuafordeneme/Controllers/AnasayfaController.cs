@@ -268,7 +268,7 @@ namespace kuafordeneme.Controllers
         private async Task<string> GetGPTModelResponse(string prompt)
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer x"); // Buraya kendi API anahtarınızı ekleyin.
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer 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"); // Buraya kendi API anahtarınızı ekleyin.
 
             var requestBody = new
             {
@@ -331,7 +331,6 @@ namespace kuafordeneme.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> RandevuAl(string adSoyad, int islemID, int calisanID, DateTime randevuZamani)
         {
@@ -343,6 +342,7 @@ namespace kuafordeneme.Controllers
                 TempData["Error"] = "Randevu alabilmek için giriş yapmalısınız.";
                 return RedirectToAction("GirisYap");
             }
+
             // Kullanıcı bilgisi doğrulama
             var oturumdakiKullanici = await _context.Kullanicilar
                                                     .FirstOrDefaultAsync(k => k.KullaniciID == kullaniciID);
@@ -352,6 +352,7 @@ namespace kuafordeneme.Controllers
                 TempData["Error"] = "Geçersiz kullanıcı oturumu. Lütfen yeniden giriş yapın.";
                 return RedirectToAction("GirisYap");
             }
+
             // Sadece kendi adına randevu alabilme kontrolü
             if (!string.Equals(oturumdakiKullanici.AdSoyad, adSoyad, StringComparison.OrdinalIgnoreCase))
             {
@@ -369,8 +370,9 @@ namespace kuafordeneme.Controllers
                     TempData["Error"] = "Kullanıcı bulunamadı.";
                     return RedirectToAction("RandevuAl");
                 }
+
                 var islem = await _context.Islemler
-                                 .FirstOrDefaultAsync(i => i.IslemID == islemID);
+                                       .FirstOrDefaultAsync(i => i.IslemID == islemID);
 
                 if (islem == null)
                 {
@@ -383,27 +385,26 @@ namespace kuafordeneme.Controllers
                     randevuZamani = DateTime.SpecifyKind(randevuZamani, DateTimeKind.Utc);
                 }
 
-
                 var salonCalismaSaatleri = new { BaslangicSaati = 9, BitisSaati = 18 };
                 if (randevuZamani.Hour < salonCalismaSaatleri.BaslangicSaati || randevuZamani.Hour >= salonCalismaSaatleri.BitisSaati)
                 {
                     TempData["Error"] = "Randevu saatleri 09:00 - 18:00 arasında olmalıdır.";
                     return RedirectToAction("RandevuAl");
                 }
-              var randevuBitisZamani = randevuZamani.AddMinutes(islem.IslemSuresi);
 
-        // Çakışma kontrolü
-        var mevcutRandevu = await _context.Randevular
-            .Where(r => r.CalisanID == calisanID &&
-                        (r.RandevuZamani < randevuBitisZamani && r.RandevuBitisZamani > randevuZamani))
-            .FirstOrDefaultAsync();
+                var randevuBitisZamani = randevuZamani.AddMinutes(islem.IslemSuresi);
 
-        if (mevcutRandevu != null)
-        {
-            TempData["Error"] = "Seçtiğiniz çalışan bu saat aralığında başka bir randevuda.";
-            return RedirectToAction("RandevuAl");
-        }
+                // Çakışma kontrolü
+                var mevcutRandevu = await _context.Randevular
+                    .Where(r => r.CalisanID == calisanID &&
+                                (r.RandevuZamani < randevuBitisZamani && r.RandevuBitisZamani > randevuZamani))
+                    .FirstOrDefaultAsync();
 
+                if (mevcutRandevu != null)
+                {
+                    TempData["Error"] = "Seçtiğiniz çalışan bu saat aralığında başka bir randevuda.";
+                    return RedirectToAction("RandevuAl");
+                }
 
                 var ikiHaftaSonra = DateTime.Now.AddDays(14);
                 if (randevuZamani < DateTime.Now || randevuZamani > ikiHaftaSonra)
@@ -423,9 +424,17 @@ namespace kuafordeneme.Controllers
                     Durum = "Bekliyor"
                 };
 
-
                 _context.Randevular.Add(randevu);
                 await _context.SaveChangesAsync();
+
+                // Çalışanın kazancını güncelleme
+                var calisan = await _context.Calisanlar.FirstOrDefaultAsync(c => c.CalisanID == calisanID);
+                if (calisan != null)
+                {
+                    calisan.GunlukKazanc += islem.Ucret; // İşlem ücretine göre kazanç artışı
+                    _context.Calisanlar.Update(calisan);
+                    await _context.SaveChangesAsync();
+                }
 
                 TempData["Success"] = "Randevunuz başarıyla alındı.";
                 return RedirectToAction("RandevuAl");
@@ -437,6 +446,7 @@ namespace kuafordeneme.Controllers
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
         }
+
         public async Task<IActionResult> Randevularim()
         {
             var kullaniciID = HttpContext.Session.GetInt32("KullaniciID");
@@ -474,6 +484,10 @@ namespace kuafordeneme.Controllers
 
         public async Task<IActionResult> AdminPanel()
         {
+            ViewBag.Uzmanliklar = await _context.Islemler.ToListAsync(); // Tüm işlemleri alıyoruz
+            ViewBag.Calisanlar = await _context.Calisanlar.Include(c => c.Uzmanliklar)
+                                                          .ThenInclude(cu => cu.Islem) // Çalışanın işlemlerini dahil ediyoruz
+                                                          .ToListAsync();
             try
             {
                 var mesajlar = _context.Mesaj.ToList(); // Örnek: Mesajlar, veri tabanındaki mesajlar tablosu
@@ -579,6 +593,7 @@ namespace kuafordeneme.Controllers
             {
                 if (islem == "ekle")
                 {
+                    // Yeni çalışan eklerken
                     var yeniCalisan = new Calisanlar
                     {
                         CalisanAd = calisanAd,
@@ -586,27 +601,82 @@ namespace kuafordeneme.Controllers
                         Musaitlik = musaitlik,
                         GunlukKazanc = gunlukKazanc,
                     };
+
+                    // Çalışan ekleme
                     _context.Calisanlar.Add(yeniCalisan);
+
+                    // Eğer uzmanlık ID'si varsa, o uzmanlıkla ilgili işlemleri ekleyelim
+                    if (uzmanlikID > 0)
+                    {
+                        var islemListesi = await _context.Islemler
+                                                          .Where(i => i.IslemID == uzmanlikID)
+                                                          .ToListAsync();
+
+                        foreach (var islemItem in islemListesi)
+                        {
+                            var calisanUzmanlik = new CalisanUzmanlik
+                            {
+                                Calisan = yeniCalisan,
+                                Islem = islemItem
+                            };
+                            _context.CalisanUzmanliklar.Add(calisanUzmanlik);
+                        }
+                    }
                 }
                 else if (islem == "guncelle" && calisanID.HasValue)
                 {
+                    // Çalışan güncelleme
                     var mevcutCalisan = await _context.Calisanlar.FindAsync(calisanID.Value);
                     if (mevcutCalisan != null)
                     {
                         mevcutCalisan.CalisanAd = calisanAd;
                         mevcutCalisan.UzmanlikID = uzmanlikID;
                         mevcutCalisan.Musaitlik = musaitlik;
+                        mevcutCalisan.GunlukKazanc = gunlukKazanc;
+
+                        // Uzmanlıkla ilgili işlemleri güncelle
+                        // Önce eski ilişkileri temizleyelim
+                        var mevcutUzmanliklar = await _context.CalisanUzmanliklar
+                                                               .Where(cu => cu.CalisanID == calisanID.Value)
+                                                               .ToListAsync();
+                        _context.CalisanUzmanliklar.RemoveRange(mevcutUzmanliklar);
+
+                        // Yeni ilişkileri ekleyelim
+                        if (uzmanlikID > 0)
+                        {
+                            var yeniIslemListesi = await _context.Islemler
+                                                                  .Where(i => i.IslemID == uzmanlikID)
+                                                                  .ToListAsync();
+
+                            foreach (var islemItem in yeniIslemListesi)
+                            {
+                                var calisanUzmanlik = new CalisanUzmanlik
+                                {
+                                    CalisanID = calisanID.Value,
+                                    IslemID = islemItem.IslemID
+                                };
+                                _context.CalisanUzmanliklar.Add(calisanUzmanlik);
+                            }
+                        }
                     }
                 }
                 else if (islem == "sil" && calisanID.HasValue)
                 {
+                    // Çalışan silme
                     var calisanSil = await _context.Calisanlar.FindAsync(calisanID.Value);
                     if (calisanSil != null)
                     {
+                        // Silme işleminde çalışanın ilişkili olduğu uzmanlıkları da silmeliyiz
+                        var calisanUzmanliklar = await _context.CalisanUzmanliklar
+                                                                .Where(cu => cu.CalisanID == calisanID.Value)
+                                                                .ToListAsync();
+
+                        _context.CalisanUzmanliklar.RemoveRange(calisanUzmanliklar);
                         _context.Calisanlar.Remove(calisanSil);
                     }
                 }
 
+                // Değişiklikleri kaydedelim
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -616,7 +686,6 @@ namespace kuafordeneme.Controllers
 
             return RedirectToAction("AdminPanel");
         }
-
 
         [HttpPost]
         public async Task<IActionResult> KullaniciEkleGuncelle(int? kullaniciID, string adSoyad, string email, string sifre, bool rol, string islem)

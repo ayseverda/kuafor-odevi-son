@@ -8,7 +8,6 @@ namespace kuafordeneme.Controllers
 {
     [Route("api/mesaj")]
     [ApiController]
-
     public class MesajlarController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

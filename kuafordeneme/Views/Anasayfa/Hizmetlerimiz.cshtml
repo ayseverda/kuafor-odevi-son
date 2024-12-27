@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    Layout = "_Layout";
+    <!-- Layout dosyasını dahil et -->
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +69,88 @@
             font-size: 1rem;
         }
 
-       
+        
+        /* Soft pastel theme */
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .navbar {
+            background-color: rgba(255, 204, 213, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #ff6781;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+            .navbar-brand:hover {
+                color: #e05571;
+            }
+
+        .nav-link {
+            color: #343a40;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        a {
+            background-color: transparent; /* Linklerin default görünümü */
+        }
+
+        .nav-link:hover {
+            color: #ff6781;
+        }
+
+        .btn-primary {
+            background-color: #ff6781;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #e05571;
+            }
+
+        footer {
+            background-color: #ffccd5;
+            color: #343a40;
+            padding: 20px 0;
+        }
+
+            footer p {
+                margin: 0;
+            }
+
+            footer .social-icons a {
+                color: #343a40;
+                margin: 0 10px;
+                font-size: 1.5rem;
+                transition: color 0.3s ease;
+            }
+
+                footer .social-icons a:hover {
+                    color: #ff6781;
+                }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+            }
+    
     </style>
 </head>
 <body>
