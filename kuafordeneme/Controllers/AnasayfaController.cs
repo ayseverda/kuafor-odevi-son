@@ -63,7 +63,7 @@ namespace kuafordeneme.Controllers
                 TempData["Error"] = "Kullanıcı bulunamadı!";
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Iletisim");
         }
 
 
@@ -431,20 +431,43 @@ namespace kuafordeneme.Controllers
                 var calisan = await _context.Calisanlar.FirstOrDefaultAsync(c => c.CalisanID == calisanID);
                 if (calisan != null)
                 {
-                    calisan.GunlukKazanc += islem.Ucret; // İşlem ücretine göre kazanç artışı
+                    // Sadece randevu tarihi bugün ise günlük kazancı güncelle
+                    if (randevuZamani.Date == DateTime.Today)
+                    {
+                        calisan.GunlukKazanc += islem.Ucret;
+                    }
                     _context.Calisanlar.Update(calisan);
                     await _context.SaveChangesAsync();
                 }
-
-                TempData["Success"] = "Randevunuz başarıyla alındı.";
-                return RedirectToAction("RandevuAl");
             }
-
+         
             // Model doğrulanamazsa işlemler ve çalışanları tekrar yükle
             ViewBag.Islemler = await _context.Islemler.ToListAsync();
             ViewBag.Calisanlar = await _context.Calisanlar.ToListAsync();
             TempData["Error"] = "Lütfen tüm alanları doldurun.";
             return View();
+        }
+
+        public void GunlukKazanciSifirla()
+        {
+            using (var scope = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var calisanlar = _context.Calisanlar.ToList();
+                    foreach (var calisan in calisanlar)
+                    {
+                        calisan.GunlukKazanc = 0;
+                    }
+                    _context.SaveChanges();
+                    scope.Commit();
+                }
+                catch (Exception ex)
+                {
+                    scope.Rollback();
+                    // Loglama yapabilirsiniz: _logger.LogError(ex, "Günlük kazanç sıfırlama hatası");
+                }
+            }
         }
 
         public async Task<IActionResult> Randevularim()
@@ -770,4 +793,3 @@ namespace kuafordeneme.Controllers
 
     }
 }
-       
